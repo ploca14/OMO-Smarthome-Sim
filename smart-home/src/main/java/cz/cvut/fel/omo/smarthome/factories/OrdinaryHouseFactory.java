@@ -1,4 +1,11 @@
 package cz.cvut.fel.omo.smarthome.factories;
 
-public class OrdinaryHouseFactory {
+import cz.cvut.fel.omo.smarthome.interfaces.factories.AbstractHouseFactory;
+import cz.cvut.fel.omo.smarthome.models.house.House;
+
+public class OrdinaryHouseFactory implements AbstractHouseFactory {
+    @Override
+    public House buildHouse() {
+        return null;
+    }
 }

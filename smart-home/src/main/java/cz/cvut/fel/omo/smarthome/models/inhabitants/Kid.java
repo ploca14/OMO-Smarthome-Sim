@@ -1,4 +1,4 @@
 package cz.cvut.fel.omo.smarthome.models.inhabitants;
 
-public class Kid {
+public class Kid extends Person{
 }
