@@ -4,6 +4,7 @@ import cz.cvut.fel.omo.smarthome.builders.FloorBuilder;
 import cz.cvut.fel.omo.smarthome.interfaces.factories.AbstractHouseFactory;
 import cz.cvut.fel.omo.smarthome.models.house.Floor;
 import cz.cvut.fel.omo.smarthome.models.house.House;
+import cz.cvut.fel.omo.smarthome.models.vehicles.Car;
 
 public class LuxuriouHouseFactory implements AbstractHouseFactory {
     @Override
@@ -28,6 +29,9 @@ public class LuxuriouHouseFactory implements AbstractHouseFactory {
                 addTVRoom().
                 getResult();
         house.addFloor(livingFloor);
+
+        house.addVehicle(new Car());
+        house.addVehicle(new Car());
 
         return house;
     }

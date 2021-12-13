@@ -11,8 +11,6 @@ public class FloorBuilder {
 
     private RoomFactory roomFactory = new RoomFactory();
 
-    private Floor floor;
-
     public FloorBuilder addKitchen(){
         rooms.add(roomFactory.makeKitchen());
         return this;

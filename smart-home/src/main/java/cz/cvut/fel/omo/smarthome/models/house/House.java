@@ -5,6 +5,7 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventConsumer;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.reports.HasReport;
+import cz.cvut.fel.omo.smarthome.models.vehicles.Vehicle;
 import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;
 import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
 import cz.cvut.fel.omo.smarthome.reports.EventReport;
@@ -15,6 +16,8 @@ import java.util.HashMap;
 
 public class House implements EventConsumer, Observable, HasReport {
     private ArrayList<Floor> floors = new ArrayList<>();
+
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     private HashMap<Class, ArrayList<Observer>> observers = new HashMap<>();
 
@@ -63,6 +66,10 @@ public class House implements EventConsumer, Observable, HasReport {
 
     public void addFloor(Floor floor){
         floors.add(floor);
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        vehicles.add(vehicle);
     }
 
     @Override
