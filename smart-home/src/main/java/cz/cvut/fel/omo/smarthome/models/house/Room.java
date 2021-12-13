@@ -15,15 +15,13 @@ public class Room {
 
     private ArrayList<Inhabitant> inhabitants = new ArrayList<>();
 
-    public Room(Integer windowsAmount) {
-        for (int i = 0; i < windowsAmount; i++){
-            windows.add(new Window());
-        }
-    }
-
     public void addDevice(Device device){
         devices.add(device);
         device.subscribeToEvents();
+    }
+
+    public void addWindow(){
+        windows.add(new Window());
     }
 
     public void addFurniture(Furniture furniture){

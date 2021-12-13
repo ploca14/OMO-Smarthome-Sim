@@ -28,9 +28,12 @@ public class FloorBuilder {
         return this;
     }
 
-    public Floor getResult(){
-        if (floor == null) return new Floor(rooms);
+    public FloorBuilder addTVRoom(){
+        rooms.add(roomFactory.makeTVRoom());
+        return this;
+    }
 
-        return floor;
+    public Floor getResult(){
+        return new Floor(rooms);
     }
 }

@@ -10,7 +10,7 @@ import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.Skis;
 // TODO nejak jeste udelat windowblinds
 public class RoomFactory {
     public Room makeKitchen(){
-        RoomBuilder roomBuilder = new RoomBuilder(4);
+        RoomBuilder roomBuilder = new RoomBuilder();
         roomBuilder.
                 addDevice(new Fridge()).
                 addDevice(new Dishwasher()).
@@ -19,13 +19,15 @@ public class RoomFactory {
                 addDevice(new Oven()).
                 addDevice(new Microwave()).
                 addDevice(new AC()).
-                addDevice(new Sensor());
+                addDevice(new Sensor()).
+                addWindow().
+                addWindow();
 
         return roomBuilder.getResult();
     }
 
     public Room makeLivingRoom(){
-        RoomBuilder roomBuilder = new RoomBuilder(2);
+        RoomBuilder roomBuilder = new RoomBuilder();
         roomBuilder.
                 addDevice(new TV()).
                 addDevice(new Light()).
@@ -35,18 +37,35 @@ public class RoomFactory {
                 addDevice(new AC()).
                 addDevice(new AudioWaveReceiver()).
                 addDevice(new Dehumidifier()).
-                addDevice(new Sensor());
+                addDevice(new Sensor()).
+                addWindow();
 
         return roomBuilder.getResult();
     }
 
     public Room makeCellar(){
-        RoomBuilder roomBuilder = new RoomBuilder(0);
+        RoomBuilder roomBuilder = new RoomBuilder();
         SportsEquipmentRack rack = new SportsEquipmentRack();
         rack.addSportsEquipment(new Bike());
         rack.addSportsEquipment(new Skis());
 
         roomBuilder.addFurniture(rack);
+        return roomBuilder.getResult();
+    }
+
+    public Room makeTVRoom(){
+        RoomBuilder roomBuilder = new RoomBuilder();
+        roomBuilder.
+                addDevice(new TV()).
+                addDevice(new TV()).
+                addDevice(new TV()).
+                addDevice(new TV()).
+                addDevice(new Fridge()).
+                addWindow().
+                addWindow().
+                addWindow().
+                addWindow();
+
         return roomBuilder.getResult();
     }
 }

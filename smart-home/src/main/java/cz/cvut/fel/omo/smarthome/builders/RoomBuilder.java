@@ -7,8 +7,8 @@ import cz.cvut.fel.omo.smarthome.models.house.furniture.Furniture;
 public class RoomBuilder {
     private Room room;
 
-    public RoomBuilder(Integer windows) {
-        Room room = new Room(windows);
+    public RoomBuilder() {
+        Room room = new Room();
     }
 
     public RoomBuilder addDevice(Device device){
@@ -21,7 +21,18 @@ public class RoomBuilder {
         return this;
     }
 
+    public RoomBuilder addWindow(){
+        room.addWindow();
+        return this;
+    }
+
     public Room getResult(){
-        return room;
+        Room result = this.room;
+        reset();
+        return result;
+    }
+
+    private void reset(){
+        room = new Room();
     }
 }
