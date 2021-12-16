@@ -20,6 +20,6 @@ public class DeviceIteratorTest {
             deviceCount++;
         }
 
-        Assertions.assertEquals(17, deviceCount);
+        Assertions.assertEquals(18, deviceCount);
     }
 }

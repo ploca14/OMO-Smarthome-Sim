@@ -1,9 +1,8 @@
-package cz.cvut.fel.omo.smarthome.events;
+package cz.cvut.fel.omo.smarthome.events.abstractevents;
 
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
-import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 
-public class ImportantEvent extends Event{
+abstract public class ImportantEvent extends Event{
     @Override
     public void accept(Observer observer) {
         observer.notify(this);

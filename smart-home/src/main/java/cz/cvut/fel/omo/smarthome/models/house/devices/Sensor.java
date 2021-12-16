@@ -1,6 +1,6 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
-import cz.cvut.fel.omo.smarthome.events.Event;
+import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
 public class Sensor extends Device{

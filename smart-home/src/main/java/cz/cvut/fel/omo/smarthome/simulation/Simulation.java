@@ -4,6 +4,7 @@ import cz.cvut.fel.omo.smarthome.configuration.Configuration;
 import cz.cvut.fel.omo.smarthome.configuration.HouseType;
 import cz.cvut.fel.omo.smarthome.factories.LuxuriouHouseFactory;
 import cz.cvut.fel.omo.smarthome.factories.OrdinaryHouseFactory;
+import cz.cvut.fel.omo.smarthome.iterators.DeviceIterator;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
@@ -16,10 +17,6 @@ public class Simulation {
     private House house;
 
     private Integer currentSimulationTick = 1;
-
-    public Integer getTimeElapsed() {
-        return currentSimulationTick;
-    }
 
     public Simulation(Configuration configuration) {
         this.configuration = configuration;
@@ -53,7 +50,16 @@ public class Simulation {
     }
 
     public void execute(){
+        while (currentSimulationTick != configuration.getSimulationLength() + 1){
+            simulateDeviceActivity();
+        }
+    }
 
+    private void simulateDeviceActivity(){
+        DeviceIterator deviceIterator = house.getDeviceIterator();
+        while (deviceIterator.hasNext()){
+
+        }
     }
 
     public House getHouse() {

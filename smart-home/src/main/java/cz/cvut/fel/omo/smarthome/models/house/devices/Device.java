@@ -68,6 +68,8 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         configurationVisitor.visitDevice(this);
     }
 
+    //public abstract void simulateOneTick();
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

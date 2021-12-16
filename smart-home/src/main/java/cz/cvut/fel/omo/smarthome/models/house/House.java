@@ -1,7 +1,8 @@
 package cz.cvut.fel.omo.smarthome.models.house;
 
-import cz.cvut.fel.omo.smarthome.events.Event;
+import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventConsumer;
+import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.reports.HasReport;
@@ -55,7 +56,8 @@ public class House implements EventConsumer, Observable, HasReport {
     }
 
     @Override
-    public void consumeEvent(Event event) {
+    public void consumeEvent(EventPublisher source, Event event) {
+        event.setSource(source);
         unhandledEvents.add(event);
     }
 

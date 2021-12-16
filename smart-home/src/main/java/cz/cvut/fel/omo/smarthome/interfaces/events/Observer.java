@@ -1,7 +1,6 @@
 package cz.cvut.fel.omo.smarthome.interfaces.events;
 
-import cz.cvut.fel.omo.smarthome.events.Event;
-import cz.cvut.fel.omo.smarthome.events.ImportantEvent;
+import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 
 public interface Observer {
     /**
