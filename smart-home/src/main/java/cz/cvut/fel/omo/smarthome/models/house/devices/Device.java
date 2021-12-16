@@ -7,6 +7,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.devices.misc.DeviceConsumption;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.DeviceState;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.IdleState;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 
 abstract public class Device implements Observer, EventPublisher, HasConsumption {
     protected DeviceState state;
@@ -61,5 +62,9 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         }
 
         return warranty;
+    }
+
+    public void accept(ConfigurationVisitor configurationVisitor){
+        configurationVisitor.visitDevice(this);
     }
 }

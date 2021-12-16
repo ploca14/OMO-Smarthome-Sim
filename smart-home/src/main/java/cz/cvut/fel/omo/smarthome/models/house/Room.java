@@ -3,6 +3,7 @@ package cz.cvut.fel.omo.smarthome.models.house;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.Furniture;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 
 import java.util.ArrayList;
 
@@ -50,5 +51,9 @@ public class Room {
 
     public ArrayList<Inhabitant> getInhabitants() {
         return inhabitants;
+    }
+
+    public void accept(ConfigurationVisitor configurationVisitor){
+        configurationVisitor.visitRoom(this);
     }
 }

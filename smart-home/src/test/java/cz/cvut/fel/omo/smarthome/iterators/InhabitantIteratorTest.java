@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class InhabitantIteratorTest {
 
     @Test
-    public void defaultHouseConfiguration_InhabitantIteratorNext_4ADults2Kids3Dogs(){
+    public void next_defaultHouseConfiguration_4ADults2Kids3Dogs(){
         Configuration cfg = new Configuration();
         Simulation simulation = new Simulation(cfg);
         InhabitantIterator iterator = simulation.getHouse().getInhabitantIterator();
@@ -35,7 +35,7 @@ public class InhabitantIteratorTest {
     }
 
     @Test
-    public void emptyHouse_InhabitantIteratorhasNext_hasNextFalseImmediately(){
+    public void hasNext_emptyHouse_FalseImmediately(){
         House house = (new OrdinaryHouseFactory()).buildHouse();
         InhabitantIterator iterator = house.getInhabitantIterator();
 
@@ -46,7 +46,7 @@ public class InhabitantIteratorTest {
     }
 
     @Test
-    public void customlyPlacedInhabitans_InhabitantIteratorNext_2Inhabitants(){
+    public void next_customlyPlacedInhabitans_2Inhabitants(){
         Integer inhabitantCount = 0;
         House house = (new OrdinaryHouseFactory()).buildHouse();
         house.getFloors().get(0).getRooms().get(0).addInhabitant(new Adult());

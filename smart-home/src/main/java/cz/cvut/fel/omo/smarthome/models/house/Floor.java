@@ -1,5 +1,7 @@
 package cz.cvut.fel.omo.smarthome.models.house;
 
+import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
+
 import java.util.ArrayList;
 
 public class Floor {
@@ -11,5 +13,9 @@ public class Floor {
 
     public ArrayList<Room> getRooms() {
         return rooms;
+    }
+
+    public void accept(ConfigurationVisitor configurationVisitor){
+        configurationVisitor.visitFloor(this);
     }
 }

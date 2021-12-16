@@ -12,6 +12,7 @@ import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;
 import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
 import cz.cvut.fel.omo.smarthome.reports.EventReport;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,7 +105,9 @@ public class House implements EventConsumer, Observable, HasReport {
 
     @Override
     public HouseConfigurationReport getHouseConfigurationReport() {
-        throw new UnsupportedOperationException(); // TODO
+        ConfigurationVisitor configurationVisitor = new ConfigurationVisitor();
+        this.accept(configurationVisitor);
+        return configurationVisitor.getReport();
     }
 
     @Override
@@ -120,5 +123,9 @@ public class House implements EventConsumer, Observable, HasReport {
     @Override
     public EventReport getEventReport() {
         throw new UnsupportedOperationException(); // TODO
+    }
+
+    public void accept(ConfigurationVisitor configurationVisitor){
+        configurationVisitor.visitHouse(this);
     }
 }

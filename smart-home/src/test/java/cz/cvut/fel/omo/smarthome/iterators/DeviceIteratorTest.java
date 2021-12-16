@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class DeviceIteratorTest {
 
     @Test
-    public void defaultHouseConfiguration_DeviceIteratorNext_(){
+    public void next_defaultHouseConfiguration_17devices(){
         Configuration cfg = new Configuration();
         Simulation simulation = new Simulation(cfg);
         DeviceIterator iterator = simulation.getHouse().getDeviceIterator();
