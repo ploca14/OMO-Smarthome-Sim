@@ -27,6 +27,7 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
     }
 
     public void subscribeToEvents() {
+        throw new UnsupportedOperationException();
         // TODO
     }
 

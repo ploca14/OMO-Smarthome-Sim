@@ -6,5 +6,5 @@ import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 public interface HasConsumption {
     DeviceConsumption getConsumption();
 
-    void accept(ConsumptionVisitor);
+    void accept(ConsumptionVisitor consumptionVisitor);
 }

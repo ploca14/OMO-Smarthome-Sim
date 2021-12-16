@@ -5,6 +5,8 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventConsumer;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.reports.HasReport;
+import cz.cvut.fel.omo.smarthome.iterators.DeviceIterator;
+import cz.cvut.fel.omo.smarthome.iterators.InhabitantIterator;
 import cz.cvut.fel.omo.smarthome.models.vehicles.Vehicle;
 import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;
 import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
@@ -86,6 +88,18 @@ public class House implements EventConsumer, Observable, HasReport {
         for (ArrayList<Observer> registeredObservers : observers.values()){
             if (registeredObservers.contains(observerToRemove)) registeredObservers.remove(observerToRemove);
         }
+    }
+
+    public ArrayList<Floor> getFloors() {
+        return floors;
+    }
+
+    public InhabitantIterator getInhabitantIterator(){
+        return new InhabitantIterator(this);
+    }
+
+    public DeviceIterator getDeviceIterator(){
+        return new DeviceIterator(this);
     }
 
     @Override

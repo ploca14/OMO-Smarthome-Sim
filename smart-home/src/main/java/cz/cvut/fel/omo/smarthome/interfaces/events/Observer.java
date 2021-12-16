@@ -11,7 +11,7 @@ public interface Observer {
      * napr. DeviceBrokeDownEvent atd...
      */
 
-    default void notify(ImportantEvent event){};
+    default void notify(Event event){};
 
     void subscribeToEvents(); // Defines all events, the observer wants to listen to
 }

@@ -13,4 +13,14 @@ public class Adult extends Person implements Observer {
     public void findManual(Device device){
         Manual manual = ManualPool.getManual(device);
     }
+
+    @Override
+    public void notify(Event event) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void subscribeToEvents() {
+        throw new UnsupportedOperationException();
+    }
 }

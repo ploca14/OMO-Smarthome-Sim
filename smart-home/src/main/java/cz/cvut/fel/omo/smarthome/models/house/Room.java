@@ -17,7 +17,7 @@ public class Room {
 
     public void addDevice(Device device){
         devices.add(device);
-        device.subscribeToEvents();
+        //device.subscribeToEvents();  TODO UNCOMMENT
     }
 
     public void addWindow(){
@@ -34,5 +34,21 @@ public class Room {
 
     public void removeInhabitant(Inhabitant inhabitant){
         inhabitants.remove(inhabitant);
+    }
+
+    public ArrayList<Device> getDevices() {
+        return devices;
+    }
+
+    public ArrayList<Window> getWindows() {
+        return windows;
+    }
+
+    public ArrayList<Furniture> getFurniture() {
+        return furniture;
+    }
+
+    public ArrayList<Inhabitant> getInhabitants() {
+        return inhabitants;
     }
 }

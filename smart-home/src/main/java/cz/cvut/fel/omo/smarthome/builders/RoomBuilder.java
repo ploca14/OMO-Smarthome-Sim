@@ -8,7 +8,7 @@ public class RoomBuilder {
     private Room room;
 
     public RoomBuilder() {
-        Room room = new Room();
+        room = new Room();
     }
 
     public RoomBuilder addDevice(Device device){
