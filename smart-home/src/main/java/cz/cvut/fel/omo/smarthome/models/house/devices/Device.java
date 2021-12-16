@@ -67,4 +67,9 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitDevice(this);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

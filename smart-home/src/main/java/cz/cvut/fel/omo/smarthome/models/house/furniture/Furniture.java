@@ -6,4 +6,9 @@ abstract public class Furniture {
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitFurniture(this);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

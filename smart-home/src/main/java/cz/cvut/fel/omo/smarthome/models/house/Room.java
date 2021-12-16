@@ -21,8 +21,8 @@ public class Room {
         //device.subscribeToEvents();  TODO UNCOMMENT
     }
 
-    public void addWindow(){
-        windows.add(new Window());
+    public void addWindow(Window window){
+        windows.add(window);
     }
 
     public void addFurniture(Furniture furniture){

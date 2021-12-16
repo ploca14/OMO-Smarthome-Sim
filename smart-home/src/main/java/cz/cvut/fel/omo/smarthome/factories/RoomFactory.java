@@ -20,7 +20,7 @@ public class RoomFactory {
                 addDevice(new Microwave()).
                 addDevice(new AC()).
                 addDevice(new Sensor()).
-                addWindow().
+                addWindow(true).
                 addWindow();
 
         return roomBuilder.getResult();
@@ -61,10 +61,10 @@ public class RoomFactory {
                 addDevice(new TV()).
                 addDevice(new TV()).
                 addDevice(new Fridge()).
-                addWindow().
-                addWindow().
-                addWindow().
-                addWindow();
+                addWindow(true).
+                addWindow(true).
+                addWindow(true).
+                addWindow(true);
 
         return roomBuilder.getResult();
     }

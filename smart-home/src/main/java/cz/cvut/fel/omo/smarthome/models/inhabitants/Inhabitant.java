@@ -6,4 +6,9 @@ abstract public class Inhabitant {
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitInhabitant(this);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

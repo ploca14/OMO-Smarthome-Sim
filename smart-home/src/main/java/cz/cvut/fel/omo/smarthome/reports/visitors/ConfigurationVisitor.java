@@ -4,6 +4,7 @@ import cz.cvut.fel.omo.smarthome.iterators.InhabitantIterator;
 import cz.cvut.fel.omo.smarthome.models.house.Floor;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
+import cz.cvut.fel.omo.smarthome.models.house.Window;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.Furniture;
 import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
@@ -14,17 +15,10 @@ public class ConfigurationVisitor {
     StringBuilder reportTextBuilder = new StringBuilder();
 
     public void visitDevice(Device device){
-        reportTextBuilder.append("---- Device: ").append(device.toString()).append("\n");
+        reportTextBuilder.append("---- ").append(device.toString()).append("\n");
     }
 
     public void visitHouse(House house){
-        reportTextBuilder.append("These inhabitants are currently present: \n");
-        InhabitantIterator inhabitantIterator = house.getInhabitantIterator();
-        while (inhabitantIterator.hasNext()){
-            reportTextBuilder.append(inhabitantIterator.next().toString()).append("\n");
-        }
-
-        reportTextBuilder.append("#######################################\n");
         reportTextBuilder.append("- House\n");
         for (Floor floor : house.getFloors()){
             floor.accept(this);
@@ -51,18 +45,29 @@ public class ConfigurationVisitor {
         for (Furniture furniture : room.getFurniture()){
             furniture.accept(this);
         }
+
+        for (Window window : room.getWindows()){
+            window.accept(this);
+        }
     }
 
     public void visitInhabitant(Inhabitant inhabitant){
-        reportTextBuilder.append("---- Inhabitant: ").append(inhabitant.toString()).append(("\n"));
+        reportTextBuilder.append("---- ").append(inhabitant.toString()).append(("\n"));
     }
 
     public void visitFurniture(Furniture furniture){
-        reportTextBuilder.append("---- Furniture:").append(furniture.toString()).append("\n");
+        reportTextBuilder.append("---- ").append(furniture.toString()).append("\n");
     }
 
     public void visitSportsEquipment(SportsEquipment sportsEquipment){
-        reportTextBuilder.append("----- Sportsequipment: ").append(sportsEquipment.toString()).append(("\n"));
+        reportTextBuilder.append("----- ").append(sportsEquipment.toString()).append(("\n"));
+    }
+
+    public void visitWindow(Window window){
+        reportTextBuilder.append("---- Window \n");
+        if (window.getBlind() != null){
+            reportTextBuilder.append("----- ").append(window.getBlind()).append("\n");
+        }
     }
 
     public HouseConfigurationReport getReport(){

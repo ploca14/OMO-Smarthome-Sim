@@ -6,4 +6,9 @@ abstract public class SportsEquipment {
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitSportsEquipment(this);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

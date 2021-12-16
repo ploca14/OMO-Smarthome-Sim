@@ -13,6 +13,7 @@ import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
 import cz.cvut.fel.omo.smarthome.reports.EventReport;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,5 +128,9 @@ public class House implements EventConsumer, Observable, HasReport {
 
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitHouse(this);
+    }
+
+    public void accept(ConsumptionVisitor consumptionVisitor){
+        consumptionVisitor.visitHouse(this);
     }
 }
