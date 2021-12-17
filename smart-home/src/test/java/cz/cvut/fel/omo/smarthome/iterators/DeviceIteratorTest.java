@@ -10,7 +10,7 @@ public class DeviceIteratorTest {
 
     @Test
     public void next_defaultHouseConfiguration_17devices(){
-        Configuration cfg = new Configuration();
+        Configuration cfg = Configuration.getInstance();
         Simulation simulation = new Simulation(cfg);
         DeviceIterator iterator = simulation.getHouse().getDeviceIterator();
         Integer deviceCount = 0;

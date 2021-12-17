@@ -120,7 +120,9 @@ public class House implements EventConsumer, Observable, HasReport {
 
     @Override
     public ConsumptionReport getConsumptionReport() {
-        throw new UnsupportedOperationException(); // TODO
+        ConsumptionVisitor consumptionVisitor = new ConsumptionVisitor();
+        this.accept(consumptionVisitor);
+        return consumptionVisitor.getReport();
     }
 
     @Override

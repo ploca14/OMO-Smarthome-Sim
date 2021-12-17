@@ -18,11 +18,6 @@ public class Dehumidifier extends Device{
     }
 
     @Override
-    public void accept(ConsumptionVisitor consumptionVisitor) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void subscribeToEvents() {
         House.getInstance().attach(this, new IsTooHumid());
     }

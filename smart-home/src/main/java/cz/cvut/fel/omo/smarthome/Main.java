@@ -11,7 +11,7 @@ public class Main {
         }
 
         else{
-            simulation = new Simulation(new Configuration());
+            simulation = new Simulation(Configuration.getInstance());
         }
 
         simulation.execute();

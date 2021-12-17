@@ -26,13 +26,12 @@ public class WindowBlind extends Device{
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * WindowBLind is handled through Window entity.
+     * Therefore the method is empty, so that it does not appear twice in the report.
+     * @param configurationVisitor
+     */
     @Override
     public void accept(ConfigurationVisitor configurationVisitor) {
-    }
-
-
-    @Override
-    public void accept(ConsumptionVisitor consumptionVisitor) {
-        throw new UnsupportedOperationException();
     }
 }

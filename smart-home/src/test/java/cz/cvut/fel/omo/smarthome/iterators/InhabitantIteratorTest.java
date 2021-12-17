@@ -15,7 +15,7 @@ public class InhabitantIteratorTest {
 
     @Test
     public void next_defaultHouseConfiguration_4ADults2Kids3Dogs(){
-        Configuration cfg = new Configuration();
+        Configuration cfg = Configuration.getInstance();
         Simulation simulation = new Simulation(cfg);
         InhabitantIterator iterator = simulation.getHouse().getInhabitantIterator();
         Integer adultCount = 0;

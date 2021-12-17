@@ -5,6 +5,10 @@ import cz.cvut.fel.omo.smarthome.models.house.House;
 import java.io.FileInputStream;
 
 public class Configuration {
+    private static FileInputStream file = null;
+
+    private static Configuration instance;
+
     private Integer simulationLength;
 
     private Integer reportRate; // After how many ticks the reports should be generated
@@ -25,7 +29,7 @@ public class Configuration {
 
     private Integer gasUnitCost;
 
-    public Configuration() {
+    private Configuration() {
         simulationLength = 20;
         reportRate = 10;
         Adults = 4;
@@ -38,8 +42,20 @@ public class Configuration {
         gasUnitCost = 5;
     }
 
-    public Configuration(FileInputStream file){
+    private Configuration(FileInputStream file){
+        throw new UnsupportedOperationException();
+    }
 
+    public static Configuration getInstance(){
+        if (instance == null){
+            instance = file == null ? new Configuration() : new Configuration(file);
+        }
+
+        return instance;
+    }
+
+    public static void loadFromFile(FileInputStream file){
+        Configuration.file = file;
     }
 
     public Integer getSimulationLength() {

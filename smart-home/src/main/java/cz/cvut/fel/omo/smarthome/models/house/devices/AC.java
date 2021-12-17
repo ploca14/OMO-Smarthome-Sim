@@ -20,8 +20,4 @@ public class AC extends Device{
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public void accept(ConsumptionVisitor consumptionVisitor) {
-        throw new UnsupportedOperationException();
-    }
 }

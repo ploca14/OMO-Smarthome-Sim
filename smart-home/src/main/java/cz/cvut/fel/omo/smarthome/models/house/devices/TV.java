@@ -16,11 +16,6 @@ public class TV extends Device{
     }
 
     @Override
-    public void accept(ConsumptionVisitor consumptionVisitor) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void turnOn() {
         super.turnOn();
     }

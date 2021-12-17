@@ -14,9 +14,4 @@ public class Microwave extends Device{
     public void notify(Event event) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public void accept(ConsumptionVisitor consumptionVisitor) {
-        throw new UnsupportedOperationException();
-    }
 }

@@ -9,6 +9,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumpt
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.DeviceState;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.IdleState;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
 abstract public class Device implements Observer, EventPublisher, HasConsumption {
     protected DeviceState state = new IdleState();
@@ -71,6 +72,11 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitDevice(this);
+    }
+
+    @Override
+    public void accept(ConsumptionVisitor consumptionVisitor) {
+        consumptionVisitor.visitDevice(this);
     }
 
     public void simulateOneTick(){

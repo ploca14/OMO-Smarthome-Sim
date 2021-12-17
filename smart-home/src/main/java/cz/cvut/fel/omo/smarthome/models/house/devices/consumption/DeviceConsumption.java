@@ -1,5 +1,7 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices.consumption;
 
+import cz.cvut.fel.omo.smarthome.configuration.Configuration;
+
 /**
  * Contains information about the consumption of a device in an arbitrary long time interval.
  */
@@ -27,6 +29,13 @@ public class DeviceConsumption {
                 consumption.getElectricity() + rate.getElectricityPerTick());
     }
 
+    public static DeviceConsumption of(DeviceConsumption consumption1, DeviceConsumption consumption2){
+        return new DeviceConsumption(
+                consumption1.getWater() + consumption2.getWater(),
+                consumption1.getGas() + consumption2.getGas(),
+                consumption1.getElectricity() + consumption2.getElectricity());
+    }
+
     public Integer getWater() {
         return water;
     }
@@ -37,5 +46,17 @@ public class DeviceConsumption {
 
     public Integer getElectricity() {
         return electricity;
+    }
+
+    @Override
+    public String toString() {
+        Configuration cfg = Configuration.getInstance();
+        final Integer waterPrice = cfg.getWaterUnitCost();
+        final Integer gasPrice = cfg.getGasUnitCost();
+        final Integer electricityPrice = cfg.getElectricityUnitCost();
+
+        return "Water: " + water + " units, Price: " + waterPrice * water + "$\n" +
+                "Gas: " + gas + " units, Price: " + gasPrice * gas + "$\n" +
+                "Electricity: " + electricity + " units, Price: " + electricity * electricityPrice + "$ \n";
     }
 }
