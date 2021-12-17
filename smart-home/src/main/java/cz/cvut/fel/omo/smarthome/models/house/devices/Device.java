@@ -3,28 +3,32 @@ package cz.cvut.fel.omo.smarthome.models.house.devices;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasConsumption;
+import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionTracker;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
-import cz.cvut.fel.omo.smarthome.models.house.devices.misc.DeviceConsumption;
+import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.DeviceState;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.IdleState;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 
 abstract public class Device implements Observer, EventPublisher, HasConsumption {
-    protected DeviceState state;
+    protected DeviceState state = new IdleState();
 
-    protected DeviceConsumption consumption;
+    protected DeviceConsumptionTracker consumptionTracker = new DeviceConsumptionTracker(this);
+
+    protected DeviceConsumptionRate consumption;
 
     protected Integer durability;
 
     private Warranty warranty;
 
-    public Device() {
-        this.state = new IdleState();
+    @Override
+    public DeviceConsumptionRate getConsumptionRate() {
+        return consumption;
     }
 
     @Override
-    public DeviceConsumption getConsumption() {
-        return consumption;
+    public DeviceConsumptionTracker getConsumptionTracker() {
+        return consumptionTracker;
     }
 
     public void subscribeToEvents() {
