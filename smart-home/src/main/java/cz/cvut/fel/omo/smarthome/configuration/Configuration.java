@@ -19,6 +19,12 @@ public class Configuration {
 
     private HouseType houseType;
 
+    private Integer electricityUnitCost;
+
+    private Integer waterUnitCost;
+
+    private Integer gasUnitCost;
+
     public Configuration() {
         simulationLength = 20;
         reportRate = 10;
@@ -27,6 +33,9 @@ public class Configuration {
         Dogs = 3;
         deviceWear = 10;
         houseType = HouseType.ORDINARY;
+        electricityUnitCost = 2;
+        waterUnitCost = 1;
+        gasUnitCost = 5;
     }
 
     public Configuration(FileInputStream file){
@@ -59,5 +68,17 @@ public class Configuration {
 
     public HouseType getHouseType() {
         return houseType;
+    }
+
+    public Integer getElectricityUnitCost() {
+        return electricityUnitCost;
+    }
+
+    public Integer getWaterUnitCost() {
+        return waterUnitCost;
+    }
+
+    public Integer getGasUnitCost() {
+        return gasUnitCost;
     }
 }

@@ -16,6 +16,9 @@ public class DeviceConsumptionTracker {
         this.device = device;
     }
 
+    /**
+     * Increases the consumption of the device based on its current state.
+     */
     public void incrementPerTick(){
         if (device.getState().isIdle()){
             totalConsumption = DeviceConsumption.of(totalConsumption, device.getIdleConsumptionRate());

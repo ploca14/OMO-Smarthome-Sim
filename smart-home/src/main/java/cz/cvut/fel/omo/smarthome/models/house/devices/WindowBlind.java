@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.models.house.Window;
+import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
@@ -11,6 +12,8 @@ public class WindowBlind extends Device{
     public WindowBlind(Window window) {
         this.window = window;
         window.setBlind(this);
+        this.idleConsumptionRate = DeviceConsumptionRate.of(0,0, 1);
+        this.activeConsumptionRate = DeviceConsumptionRate.of(0, 0, 4);
     }
 
     @Override
