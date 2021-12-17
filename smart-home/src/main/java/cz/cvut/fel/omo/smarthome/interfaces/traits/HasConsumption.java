@@ -5,7 +5,9 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumpt
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
 public interface HasConsumption {
-    DeviceConsumptionRate getConsumptionRate();
+    DeviceConsumptionRate getIdleConsumptionRate();
+
+    DeviceConsumptionRate getActiveConsumptionRate();
 
     DeviceConsumptionTracker getConsumptionTracker();
 

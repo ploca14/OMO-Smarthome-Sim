@@ -13,4 +13,19 @@ public class Oven extends Device{
     public void accept(ConsumptionVisitor consumptionVisitor) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void turnOn() {
+        super.turnOn();
+    }
+
+    @Override
+    public void activate() {
+        super.activate();
+    }
+
+    @Override
+    public void deactivate() {
+        super.deactivate();
+    }
 }

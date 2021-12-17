@@ -10,10 +10,21 @@ public class DeviceConsumption {
 
     private final Integer electricity;
 
-    public DeviceConsumption(Integer water, Integer gas, Integer electricity) {
+    private DeviceConsumption(Integer water, Integer gas, Integer electricity) {
         this.water = water;
         this.gas = gas;
         this.electricity = electricity;
+    }
+
+    public static DeviceConsumption of(Integer water, Integer gas, Integer electricity){
+        return new DeviceConsumption(water, gas, electricity);
+    }
+
+    public static DeviceConsumption of(DeviceConsumption consumption, DeviceConsumptionRate rate){
+        return new DeviceConsumption(
+                consumption.getWater() + rate.getWaterPerTick(),
+                consumption.getGas() + rate.getGasPerTick(),
+                consumption.getElectricity() + rate.getElectricityPerTick());
     }
 
     public Integer getWater() {

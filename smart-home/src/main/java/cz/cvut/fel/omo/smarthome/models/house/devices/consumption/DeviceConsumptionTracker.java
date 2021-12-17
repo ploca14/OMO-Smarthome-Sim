@@ -17,21 +17,20 @@ public class DeviceConsumptionTracker {
     }
 
     public void incrementPerTick(){
-        DeviceConsumptionRate consumptionRate = device.getConsumptionRate();
-        totalConsumption = new DeviceConsumption(
-                totalConsumption.getWater() + consumptionRate.getWaterPerTick(),
-                totalConsumption.getGas() + consumptionRate.getGasPerTick(),
-                totalConsumption.getElectricity() + consumptionRate.getElectricityPerTick());
+        if (device.getState().isIdle()){
+            totalConsumption = DeviceConsumption.of(totalConsumption, device.getIdleConsumptionRate());
+            consumptionSinceReset = DeviceConsumption.of(consumptionSinceReset, device.getIdleConsumptionRate());
+        }
 
-        consumptionSinceReset = new DeviceConsumption(
-                consumptionSinceReset.getWater() + consumptionRate.getWaterPerTick(),
-                consumptionSinceReset.getGas() + consumptionRate.getGasPerTick(),
-                consumptionSinceReset.getElectricity() + consumptionRate.getElectricityPerTick());
+        else if (device.getState().isActive()){
+            totalConsumption = DeviceConsumption.of(totalConsumption, device.getActiveConsumptionRate());
+            consumptionSinceReset = DeviceConsumption.of(consumptionSinceReset, device.getActiveConsumptionRate());
+        }
     }
 
 
     public void reset(){
-        this.consumptionSinceReset = new DeviceConsumption(0, 0, 0);
+        this.consumptionSinceReset = DeviceConsumption.of(0, 0, 0);
     }
 
     public DeviceConsumption getTotalConsumption() {

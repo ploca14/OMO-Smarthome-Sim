@@ -13,18 +13,15 @@ import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 abstract public class Device implements Observer, EventPublisher, HasConsumption {
     protected DeviceState state = new IdleState();
 
-    protected DeviceConsumptionTracker consumptionTracker = new DeviceConsumptionTracker(this);
+    protected final DeviceConsumptionTracker consumptionTracker = new DeviceConsumptionTracker(this);
 
-    protected DeviceConsumptionRate consumption;
+    protected DeviceConsumptionRate idleConsumptionRate;
+
+    protected DeviceConsumptionRate activeConsumptionRate;
 
     protected Integer durability;
 
     private Warranty warranty;
-
-    @Override
-    public DeviceConsumptionRate getConsumptionRate() {
-        return consumption;
-    }
 
     @Override
     public DeviceConsumptionTracker getConsumptionTracker() {
@@ -68,11 +65,25 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         return warranty;
     }
 
+    public DeviceState getState() {
+        return state;
+    }
+
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitDevice(this);
     }
 
-    //public abstract void simulateOneTick();
+    public void simulateOneTick(){
+        consumptionTracker.incrementPerTick();
+    }
+
+    public DeviceConsumptionRate getIdleConsumptionRate() {
+        return idleConsumptionRate;
+    }
+
+    public DeviceConsumptionRate getActiveConsumptionRate() {
+        return activeConsumptionRate;
+    }
 
     @Override
     public String toString() {
