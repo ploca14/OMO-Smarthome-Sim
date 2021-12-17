@@ -6,9 +6,9 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
  * Tracks the consumption of a device.
  */
 public class DeviceConsumptionTracker {
-    private DeviceConsumption totalConsumption;
+    private DeviceConsumption totalConsumption = DeviceConsumption.of(0, 0, 0);
 
-    private DeviceConsumption consumptionSinceReset;
+    private DeviceConsumption consumptionSinceReset = DeviceConsumption.of(0, 0, 0);
 
     private final Device device;
 
