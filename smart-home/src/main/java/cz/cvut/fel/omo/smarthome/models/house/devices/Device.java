@@ -1,5 +1,7 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
+import cz.cvut.fel.omo.smarthome.configuration.Configuration;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasConsumption;
@@ -11,7 +13,13 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.state.IdleState;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
+import java.util.Random;
+
 abstract public class Device implements Observer, EventPublisher, HasConsumption {
+    private Random rand = new Random();
+
+    private Integer durability = (50 + rand.nextInt(100));
+
     protected DeviceState state = new IdleState();
 
     protected final DeviceConsumptionTracker consumptionTracker = new DeviceConsumptionTracker(this);
@@ -19,8 +27,6 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
     protected DeviceConsumptionRate idleConsumptionRate;
 
     protected DeviceConsumptionRate activeConsumptionRate;
-
-    protected Integer durability;
 
     private Warranty warranty;
 
@@ -81,6 +87,17 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     public void simulateOneTick(){
         consumptionTracker.incrementPerTick();
+        simulateDeviceWear();
+    }
+
+    private void simulateDeviceWear(){
+        if (!isBroken()){
+            durability -= Configuration.getInstance().getDeviceWearRate();
+            if (isBroken()) {
+                publishEvent(new IsBroken());
+                turnOff();
+            }
+        }
     }
 
     public DeviceConsumptionRate getIdleConsumptionRate() {

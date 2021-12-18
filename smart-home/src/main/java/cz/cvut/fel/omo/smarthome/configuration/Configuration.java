@@ -1,7 +1,5 @@
 package cz.cvut.fel.omo.smarthome.configuration;
 
-import cz.cvut.fel.omo.smarthome.models.house.House;
-
 import java.io.FileInputStream;
 
 public class Configuration {
@@ -19,7 +17,7 @@ public class Configuration {
 
     private Integer Kids;
 
-    private Integer deviceWear; // How much durability device loses after a tick
+    private Integer deviceWearRate; // How much durability device loses after a tick
 
     private HouseType houseType;
 
@@ -35,7 +33,7 @@ public class Configuration {
         Adults = 4;
         Kids = 2;
         Dogs = 3;
-        deviceWear = 10;
+        deviceWearRate = 10;
         houseType = HouseType.ORDINARY;
         electricityUnitCost = 2;
         waterUnitCost = 1;
@@ -78,8 +76,8 @@ public class Configuration {
         return Kids;
     }
 
-    public Integer getDeviceWear() {
-        return deviceWear;
+    public Integer getDeviceWearRate() {
+        return deviceWearRate;
     }
 
     public HouseType getHouseType() {

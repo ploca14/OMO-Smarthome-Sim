@@ -5,7 +5,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 public class OffState extends DeviceState{
     @Override
     public void turnOn(Device device) {
-        device.setState(new IdleState());
+        if (!device.isBroken()) device.setState(new IdleState());
     }
 
     @Override
