@@ -2,12 +2,15 @@ package cz.cvut.fel.omo.smarthome.interfaces.events;
 
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Kid;
-import cz.cvut.fel.omo.smarthome.util.HouseReset;
+import cz.cvut.fel.omo.smarthome.util.TestUtils;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
@@ -17,6 +20,11 @@ import java.lang.reflect.Field;
 public class EventPublisherTest {
 
     private House house;
+
+    @BeforeAll
+    static void loadTestConfiguration() throws IOException, ParseException {
+        TestUtils.loadTestConfiguration();
+    }
 
     @SuppressWarnings("javadoc")
     @BeforeEach
@@ -29,7 +37,7 @@ public class EventPublisherTest {
 
     @AfterEach
     public void resetHouse() throws Exception {
-        HouseReset.resetHouseSingleton();
+        TestUtils.resetHouseSingleton();
     }
 
     /**

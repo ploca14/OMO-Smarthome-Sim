@@ -6,10 +6,19 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumpt
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.ActiveState;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.IdleState;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.OffState;
+import cz.cvut.fel.omo.smarthome.util.TestUtils;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class DeviceConsumptionTrackerTest {
+    @BeforeAll
+    static void loadTestConfiguration() throws IOException, ParseException {
+        TestUtils.loadTestConfiguration();
+    }
 
     @Test
     public void getTotalConsumption_trackerOnTv_1ElectricityTotalMeasured(){

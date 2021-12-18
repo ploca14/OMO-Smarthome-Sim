@@ -1,47 +1,72 @@
 package cz.cvut.fel.omo.smarthome.configuration;
 
+import netscape.javascript.JSObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 
 public class Configuration {
-    private static FileInputStream file = null;
+    private static Reader file = null;
 
     private static Configuration instance;
 
-    private Integer simulationLength;
+    private Integer simulationLength = 20;
 
-    private Integer reportRate; // After how many ticks the reports should be generated
+    private Integer reportRate = 10; // After how many ticks the reports should be generated
 
-    private Integer Adults;
+    private Integer adults = 4;
 
-    private Integer Dogs;
+    private Integer dogs = 3;
 
-    private Integer Kids;
+    private Integer kids = 2;
 
-    private Integer deviceWearRate; // How much durability device loses after a tick
+    private Integer deviceWearRate = 10; // How much durability device loses after a tick
 
-    private HouseType houseType;
+    private HouseType houseType = HouseType.ORDINARY;
 
-    private Integer electricityUnitCost;
+    private Integer electricityUnitCost = 2;
 
-    private Integer waterUnitCost;
+    private Integer waterUnitCost = 1;
 
-    private Integer gasUnitCost;
+    private Integer gasUnitCost = 5;
 
     private Configuration() {
-        simulationLength = 20;
-        reportRate = 10;
-        Adults = 4;
-        Kids = 2;
-        Dogs = 3;
-        deviceWearRate = 10;
-        houseType = HouseType.ORDINARY;
-        electricityUnitCost = 2;
-        waterUnitCost = 1;
-        gasUnitCost = 5;
     }
 
-    private Configuration(FileInputStream file){
-        throw new UnsupportedOperationException();
+    private Configuration(Reader file){
+        try {
+            JSONObject jsonObj = (JSONObject) new JSONParser().parse(file);
+            this.simulationLength = getIntFromJson(jsonObj, "simulationLength") == null ? this.simulationLength : getIntFromJson(jsonObj, "simulationLength");
+            this.reportRate = getIntFromJson(jsonObj, "reportRate") == null ? this.reportRate : getIntFromJson(jsonObj, "reportRate");
+            this.adults = getIntFromJson(jsonObj, "adults") == null ? this.adults : getIntFromJson(jsonObj, "adults");
+            this.dogs = getIntFromJson(jsonObj, "dogs") == null ? this.dogs : getIntFromJson(jsonObj, "dogs");
+            this.kids = getIntFromJson(jsonObj, "kids") == null ? this.kids : getIntFromJson(jsonObj, "kids");
+            this.deviceWearRate = getIntFromJson(jsonObj, "deviceWearRate") == null ? this.deviceWearRate : getIntFromJson(jsonObj, "deviceWearRate");
+            this.houseType = getStringFromJson(jsonObj, "houseType") == null ? this.houseType : HouseType.valueOf(getStringFromJson(jsonObj, "houseType"));
+            this.electricityUnitCost = getIntFromJson(jsonObj, "electricityUnitCost") == null ? this.electricityUnitCost : getIntFromJson(jsonObj, "electricityUnitCost");
+            this.waterUnitCost = getIntFromJson(jsonObj, "waterUnitCost") == null ? this.waterUnitCost : getIntFromJson(jsonObj, "waterUnitCost");
+            this.gasUnitCost = getIntFromJson(jsonObj, "gasUnitCost") == null ? this.gasUnitCost : getIntFromJson(jsonObj, "gasUnitCost");
+
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException("Failed to parse Configuration from file" + file.toString());
+        }
+    }
+
+    private String getStringFromJson(JSONObject jsonObj, String key){
+        String value = (String) jsonObj.get(key);
+        if (value == null) return null;
+        return value;
+    }
+
+    private Integer getIntFromJson(JSONObject jsonObj, String key){
+        Long value = (Long) jsonObj.get(key);
+        if (value == null) return null;
+        return value.intValue();
     }
 
     public static Configuration getInstance(){
@@ -52,7 +77,7 @@ public class Configuration {
         return instance;
     }
 
-    public static void loadFromFile(FileInputStream file){
+    public static void loadFromFile(Reader file){
         Configuration.file = file;
     }
 
@@ -65,15 +90,15 @@ public class Configuration {
     }
 
     public Integer getAdults() {
-        return Adults;
+        return adults;
     }
 
     public Integer getDogs() {
-        return Dogs;
+        return dogs;
     }
 
     public Integer getKids() {
-        return Kids;
+        return kids;
     }
 
     public Integer getDeviceWearRate() {

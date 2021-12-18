@@ -51,7 +51,7 @@ public class Simulation {
             house = new OrdinaryHouseFactory().buildHouse();
         }
 
-        else if (configuration.getHouseType() == HouseType.LUXURIUS){
+        else if (configuration.getHouseType() == HouseType.LUXURIOUS){
             house = new LuxuriouHouseFactory().buildHouse();
         }
     }

@@ -9,16 +9,25 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.devices.TV;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
-import cz.cvut.fel.omo.smarthome.util.HouseReset;
+import cz.cvut.fel.omo.smarthome.util.TestUtils;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 public class ObserverTest {
 
+    @BeforeAll
+    static void loadTestConfiguration() throws IOException, ParseException {
+        TestUtils.loadTestConfiguration();
+    }
+
     @AfterEach
     public void resetHouseSingleton() throws NoSuchFieldException, IllegalAccessException {
-        HouseReset.resetHouseSingleton();
+        TestUtils.resetHouseSingleton();
     }
 
     @Test

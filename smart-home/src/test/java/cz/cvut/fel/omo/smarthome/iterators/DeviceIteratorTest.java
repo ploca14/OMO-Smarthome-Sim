@@ -4,14 +4,18 @@ import cz.cvut.fel.omo.smarthome.configuration.Configuration;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.simulation.Simulation;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import cz.cvut.fel.omo.smarthome.util.TestUtils;
+import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.*;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 public class DeviceIteratorTest {
+    @BeforeAll
+    static void loadTestConfiguration() throws IOException, ParseException {
+        TestUtils.loadTestConfiguration();
+    }
 
     @BeforeEach
     public void resetSingleton() throws Exception {
