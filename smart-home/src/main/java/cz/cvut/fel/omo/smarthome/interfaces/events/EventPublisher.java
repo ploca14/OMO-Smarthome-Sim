@@ -10,6 +10,8 @@ import java.util.Random;
 public interface EventPublisher {
     // TODO mozna problem parametrizace tu te classy, checkni v debuggeru co tam je za keys
     // TODO jestli to jsou fakt ty spravne typy, anebo tam bude jenom eventPublisher.class
+
+    // TODO momentalne je problem, ze tim jak se publishuje furt ten stejny event dokola, tak pak tam je spatny source
     HashMap<Class<? extends EventPublisher>, ArrayList<Event>> canPublishRandomly = new HashMap<>();
 
     default void publishEvent(Event event){
