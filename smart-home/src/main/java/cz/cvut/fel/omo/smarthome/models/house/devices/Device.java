@@ -1,6 +1,7 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.configuration.Configuration;
+import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
@@ -109,7 +110,17 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
     }
 
     @Override
+    public boolean canMove() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public boolean isInRoomWithSource(Event event) {
+        throw new UnsupportedOperationException();
     }
 }

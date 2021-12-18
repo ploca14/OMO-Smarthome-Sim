@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.interfaces.events;
 
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Kid;
+import cz.cvut.fel.omo.smarthome.util.HouseReset;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,15 +26,10 @@ public class EventPublisherTest {
         //Mockito.when(formatter.formatTachoIcon()).thenReturn(MOCKED_URL);
     }
 
-    /**
-     * Remove the mocked instance from the class. It is important to clean up the class, because other tests will be confused with the mocked instance.
-     * @throws Exception if the instance could not be accessible
-     */
+
     @AfterEach
-    public void resetSingleton() throws Exception {
-        Field instance = House.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
+    public void resetHouse() throws Exception {
+        HouseReset.resetHouseSingleton();
     }
 
     /**

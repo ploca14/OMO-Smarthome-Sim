@@ -12,7 +12,8 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Manual;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
 
-public class Adult extends Person implements Observer {
+// TODO move implements observer up to inhabitant
+public class Adult extends Person {
     public Adult() {
         addRandomlyPublishedEvent(new IsSad());
     }

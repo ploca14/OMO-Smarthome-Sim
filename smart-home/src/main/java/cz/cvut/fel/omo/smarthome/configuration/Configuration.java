@@ -33,7 +33,7 @@ public class Configuration {
         Adults = 4;
         Kids = 2;
         Dogs = 3;
-        deviceWearRate = 100;
+        deviceWearRate = 10;
         houseType = HouseType.ORDINARY;
         electricityUnitCost = 2;
         waterUnitCost = 1;

@@ -31,6 +31,7 @@ public class Room {
 
     public void addInhabitant(Inhabitant inhabitant){
         inhabitants.add(inhabitant);
+        inhabitant.setCurrentRoom(this);
     }
 
     public void removeInhabitant(Inhabitant inhabitant){
