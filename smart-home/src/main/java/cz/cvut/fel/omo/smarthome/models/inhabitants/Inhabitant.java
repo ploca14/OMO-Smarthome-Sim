@@ -5,8 +5,11 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 abstract public class Inhabitant implements EventPublisher {
+    Random rand = new Random();
+
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitInhabitant(this);
     }
@@ -18,5 +21,8 @@ abstract public class Inhabitant implements EventPublisher {
 
     public void simulateOneTick(){
         publishRandomEvent();
+        if (rand.nextInt(4) == 0){
+            publishRandomEvent();
+        }
     }
 }

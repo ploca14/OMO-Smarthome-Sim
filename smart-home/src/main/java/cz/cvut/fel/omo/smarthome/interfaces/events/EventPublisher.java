@@ -4,10 +4,13 @@ import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public interface EventPublisher {
-    ArrayList<Event> canPublishRandomly = new ArrayList<>();
+    // TODO mozna problem parametrizace tu te classy, checkni v debuggeru co tam je za keys
+    // TODO jestli to jsou fakt ty spravne typy, anebo tam bude jenom eventPublisher.class
+    HashMap<Class<? extends EventPublisher>, ArrayList<Event>> canPublishRandomly = new HashMap<>();
 
     default void publishEvent(Event event){
         House.getInstance().consumeEvent(this, event);
@@ -18,20 +21,27 @@ public interface EventPublisher {
     }
 
     default void addRandomlyPublishedEvent(Event event){
-        for (Event e : canPublishRandomly) {
+        ArrayList<Event> eventsThisCanPublish = canPublishRandomly.get(this.getClass());
+        if (eventsThisCanPublish == null){
+            eventsThisCanPublish = new ArrayList<>();
+        }
+
+        for (Event e : eventsThisCanPublish) {
             if (e.getClass().equals(event.getClass())) return;
         }
 
-        canPublishRandomly.add(event);
+        eventsThisCanPublish.add(event);
     }
 
     default boolean canPublishRandomlyAtleastOneEvent(){
-        return canPublishRandomly.size() != 0;
+        ArrayList<Event> events = canPublishRandomly.get(this.getClass());
+        return events != null && events.size() != 0;
     }
 
-    default Event getRandomEvent(){
+    private Event getRandomEvent(){
         Random rand = new Random();
-        Event randomEvent = canPublishRandomly.get(rand.nextInt(canPublishRandomly.size()));
+        ArrayList<Event> events = canPublishRandomly.get(this.getClass());
+        Event randomEvent = clone(events.get(rand.nextInt(canPublishRandomly.size()));
         return randomEvent;
     }
 }

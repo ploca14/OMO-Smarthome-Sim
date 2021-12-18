@@ -24,9 +24,11 @@ public class House implements EventConsumer, Observable, HasReport {
 
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
-    private HashMap<Class, ArrayList<Observer>> observers = new HashMap<>();
+    private HashMap<Class<? extends Event>, ArrayList<Observer>> observers = new HashMap<>();
 
     private ArrayList<Event> unhandledEvents = new ArrayList<>();
+
+    private ArrayList<Event> handledEvents = new ArrayList<>();
 
     private static House instance;
 
@@ -35,7 +37,7 @@ public class House implements EventConsumer, Observable, HasReport {
 
     public static House getInstance() {
         if (instance == null){
-            return new House();
+            instance = new House();
         }
 
         return instance;

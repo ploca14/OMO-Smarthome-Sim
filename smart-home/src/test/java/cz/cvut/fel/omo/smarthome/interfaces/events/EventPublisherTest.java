@@ -52,12 +52,10 @@ public class EventPublisherTest {
     }
 
     @Test
-    public void publishRandomEvent_mockedHouse_houseConsumeEventCalledExactlyOnce(){
+    public void publishRandomEvent_mockedHouse_houseConsumeEventCalledWithCorrectEventPublisher(){
         EventPublisher kid = new Kid();
         kid.publishRandomEvent();
 
         Mockito.verify(house).consumeEvent(Mockito.any(Kid.class), Mockito.any());
     }
-
-
 }
