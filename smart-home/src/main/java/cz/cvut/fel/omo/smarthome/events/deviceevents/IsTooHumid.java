@@ -7,6 +7,9 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 public class IsTooHumid extends ImportantEvent {
     private final String description = "Humidity in a room is too high.";
 
+    public IsTooHumid() {
+    }
+
     public IsTooHumid(Event event) {
         super(event);
     }

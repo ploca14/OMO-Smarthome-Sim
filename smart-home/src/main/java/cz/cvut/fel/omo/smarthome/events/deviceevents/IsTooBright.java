@@ -7,7 +7,8 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 public class IsTooBright extends ImportantEvent {
     private final String description = "A room is too bright.";
 
-    
+    public IsTooBright() {
+    }
 
     public IsTooBright(Event event) {
         super(event);

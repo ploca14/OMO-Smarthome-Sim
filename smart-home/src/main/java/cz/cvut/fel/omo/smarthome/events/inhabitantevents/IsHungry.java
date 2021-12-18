@@ -7,6 +7,9 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 public class IsHungry extends ImportantEvent {
     private final String description = "Inhabitant is hungry.";
 
+    public IsHungry() {
+    }
+
     public IsHungry(Event event) {
         super(event);
     }

@@ -6,6 +6,9 @@ import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
 public class isSad extends ImportantEvent {
     private final String description = "Inhabitant is sad.";
 
+    public isSad() {
+    }
+
     public isSad(Event event) {
         super(event);
     }

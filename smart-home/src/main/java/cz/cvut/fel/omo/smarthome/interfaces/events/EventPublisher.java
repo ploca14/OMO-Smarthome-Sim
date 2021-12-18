@@ -26,6 +26,7 @@ public interface EventPublisher {
         ArrayList<Event> eventsThisCanPublish = canPublishRandomly.get(this.getClass());
         if (eventsThisCanPublish == null){
             eventsThisCanPublish = new ArrayList<>();
+            canPublishRandomly.put(this.getClass(), eventsThisCanPublish);
         }
 
         for (Event e : eventsThisCanPublish) {
@@ -43,7 +44,7 @@ public interface EventPublisher {
     private Event getRandomEvent(){
         Random rand = new Random();
         ArrayList<Event> events = canPublishRandomly.get(this.getClass());
-        Event randomEvent = clone(events.get(rand.nextInt(canPublishRandomly.size()));
+        Event randomEvent = events.get(rand.nextInt(canPublishRandomly.size())).makeCopy();
         return randomEvent;
     }
 }
