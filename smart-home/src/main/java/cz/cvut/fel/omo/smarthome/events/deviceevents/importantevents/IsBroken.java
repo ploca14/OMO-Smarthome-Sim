@@ -2,9 +2,10 @@ package cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
+import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 
 public class IsBroken extends ImportantEvent {
-    private final String description = "A room is too bright.";
+    private final String description = "A device is broken.";
 
     public IsBroken() {
     }
@@ -21,5 +22,10 @@ public class IsBroken extends ImportantEvent {
     @Override
     public Event makeCopy() {
         return new IsBroken(this);
+    }
+
+    @Override
+    public void accept(Observer observer) {
+        observer.notify(this);
     }
 }

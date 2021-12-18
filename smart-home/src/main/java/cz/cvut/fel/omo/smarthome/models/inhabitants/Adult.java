@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.models.inhabitants;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.alerts.IsMakingWeirdSounds;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
@@ -21,15 +22,23 @@ public class Adult extends Person implements Observer {
     }
 
     @Override
+    public void subscribeToEvents() {
+        House house = House.getInstance();
+        //house.attach(this, new IsCrying());
+        //house.attach(this, new IsHungry());
+        //house.attach(this, new IsMakingWeirdSounds());
+       // house.attach(this, new IsSad());
+        house.attach(this, new IsBroken());
+    }
+
+    @Override
     public void notify(Event event) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void subscribeToEvents() {
-        House.getInstance().attach(this, new IsCrying());
-        House.getInstance().attach(this, new IsHungry());
-        House.getInstance().attach(this, new IsMakingWeirdSounds());
-        House.getInstance().attach(this, new IsSad());
+    public void notify(IsBroken event) {
+        return;
+        //throw new UnsupportedOperationException();
     }
 }

@@ -12,11 +12,6 @@ abstract public class ImportantEvent extends Event{
     }
 
     @Override
-    public void accept(Observer observer) {
-        observer.notify(this);
-    }
-
-    @Override
     public void accept(EventVisitor visitor) {
         visitor.visitImportantEvent(this);
     }

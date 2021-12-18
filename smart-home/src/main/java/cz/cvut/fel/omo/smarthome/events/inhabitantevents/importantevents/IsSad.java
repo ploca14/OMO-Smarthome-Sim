@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
+import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 
 public class IsSad extends ImportantEvent {
     private final String description = "Inhabitant is sad.";
@@ -21,5 +22,10 @@ public class IsSad extends ImportantEvent {
     @Override
     public Event makeCopy() {
         return new IsSad(this);
+    }
+
+    @Override
+    public void accept(Observer observer) {
+        observer.notify(this);
     }
 }

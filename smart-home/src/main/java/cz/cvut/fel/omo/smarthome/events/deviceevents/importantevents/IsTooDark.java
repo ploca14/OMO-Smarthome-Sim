@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
+import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 
 public class IsTooDark extends ImportantEvent {
     private final String description = "A room is too dark.";
@@ -21,5 +22,10 @@ public class IsTooDark extends ImportantEvent {
     @Override
     public Event makeCopy() {
         return new IsTooDark(this);
+    }
+
+    @Override
+    public void accept(Observer observer) {
+        observer.notify(this);
     }
 }

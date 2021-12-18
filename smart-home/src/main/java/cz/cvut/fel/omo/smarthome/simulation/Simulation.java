@@ -27,17 +27,21 @@ public class Simulation {
         addInhabitants();
     }
 
-    private void addInhabitants(){
+    private void addInhabitants(){ // TODO subscribe to events
         Room startingRoom = house.getFloors().get(0).getRooms().get(0);
         for (int i = 0; i < configuration.getAdults(); i++){
-            startingRoom.addInhabitant(new Adult());
+            Adult adult = new Adult();
+            adult.subscribeToEvents();
+            startingRoom.addInhabitant(adult);
         }
 
         for (int i = 0; i < configuration.getDogs(); i++){
+            Dog dog = new Dog();
             startingRoom.addInhabitant(new Dog());
         }
 
         for (int i = 0; i < configuration.getKids(); i++){
+            Kid kid = new Kid();
             startingRoom.addInhabitant(new Kid());
         }
     }
@@ -56,6 +60,7 @@ public class Simulation {
         while (currentSimulationTick != configuration.getSimulationLength() + 1){
             simulateDeviceActivity();
             simulateInhabitantActivity();
+            house.handleEvents();
             currentSimulationTick++;
         }
     }

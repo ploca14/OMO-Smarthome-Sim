@@ -16,8 +16,7 @@ import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class House implements EventConsumer, Observable, HasReport {
     private ArrayList<Floor> floors = new ArrayList<>();
@@ -26,9 +25,9 @@ public class House implements EventConsumer, Observable, HasReport {
 
     private HashMap<Class<? extends Event>, ArrayList<Observer>> observers = new HashMap<>();
 
-    private ArrayList<Event> unhandledEvents = new ArrayList<>();
+    private Queue<Event> unhandledEvents = new LinkedList<>();
 
-    private ArrayList<Event> handledEvents = new ArrayList<>();
+    private Queue<Event> handledEvents = new LinkedList<>();
 
     private static House instance;
 
@@ -63,13 +62,38 @@ public class House implements EventConsumer, Observable, HasReport {
         unhandledEvents.add(event);
     }
 
+    /**
+     * Event handling happens in a following way:
+     * 1. Dequeue one by one all unhandled events from the unhandledEvents queue.
+     * 2. If there are some observers registered to listen to that event, then choose one of them randomly
+     * and let him handle the event.
+     * 2.1 If the observer is a device, then ensure that the device is in the same room as the source of the event.
+     * 3. Mark the event as handled
+     * 4. Enqueue the events again which could not be handled by any observer.
+     */
     public void handleEvents(){
-        for (Event event : unhandledEvents){
-            ArrayList<Observer> listOfObservers = observers.get(event.getClass());
-            for (Observer observer : listOfObservers){
-                event.accept(observer);
+        ArrayList<Event> noObserverFound = new ArrayList<>();
+        Event currentEvent;
+        Random rand = new Random();
+        while (!unhandledEvents.isEmpty()){
+            currentEvent = unhandledEvents.remove();
+            ArrayList<Observer> listOfObservers = observers.get(currentEvent.getClass());
+            if (listOfObservers != null && listOfObservers.size() != 0){
+                Integer randomObserverIndex = rand.nextInt(listOfObservers.size());
+                Observer handlingObserver = listOfObservers.get(randomObserverIndex);
+                currentEvent.accept(handlingObserver); // TODO ensure that device is in a same room
+                markEventHandled(currentEvent, handlingObserver);
+            }
+            else{
+                noObserverFound.add(currentEvent);
             }
         }
+        unhandledEvents.addAll(noObserverFound);
+    }
+
+    private void markEventHandled(Event event, Observer handler){
+        event.setHandledBy(handler);
+        handledEvents.add(event);
     }
 
     public void addFloor(Floor floor){

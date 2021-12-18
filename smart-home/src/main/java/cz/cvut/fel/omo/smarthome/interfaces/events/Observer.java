@@ -2,10 +2,7 @@ package cz.cvut.fel.omo.smarthome.interfaces.events;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.alerts.IsMakingWeirdSounds;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooBright;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooDark;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooHot;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooHumid;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.*;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
@@ -35,6 +32,8 @@ public interface Observer {
     default void notify(IsSad event){};
 
     default void notify(IsHungry event){};
+
+    default void notify (IsBroken event){};
 
     void subscribeToEvents(); // Defines all events, the observer wants to listen to
 }
