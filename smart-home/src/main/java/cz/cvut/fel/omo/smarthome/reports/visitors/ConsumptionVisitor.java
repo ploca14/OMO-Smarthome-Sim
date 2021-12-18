@@ -38,8 +38,8 @@ public class ConsumptionVisitor {
             deviceIterator.next().accept(this);
         }
 
-        reportTextBuilder.append("\n").append("Total consumption in house: ").append(totalConsumption).append("\n");
-        reportTextBuilder.append("Consumption in house since last measuring: ").append(sinceLastVisitConsumption);
+        reportTextBuilder.append("\n").append("Total consumption in house:\n").append(totalConsumption).append("\n");
+        reportTextBuilder.append("Consumption in house since last measuring:\n").append(sinceLastVisitConsumption);
     }
 
     public ConsumptionReport getReport(){
