@@ -65,7 +65,8 @@ public class House implements EventConsumer, Observable, HasReport {
     /**
      * Event handling happens in a following way:
      * 1. Dequeue one by one all unhandled events from the unhandledEvents queue.
-     * 2. If there are some observers registered to listen to that event, then choose one of them randomly
+     * 2. If there are some observers registered to listen to that event, then choose one of them randomly or add all of them
+     * depending on, whether all observers should be informed about the event
      * and let him handle the event.
      * 2.1 If the observer is a device, then ensure that the device is in the same room as the source of the event.
      * 3. Mark the event as handled
@@ -73,26 +74,42 @@ public class House implements EventConsumer, Observable, HasReport {
      */
     public void handleEvents(){
         ArrayList<Event> noObserverFound = new ArrayList<>();
-        Event currentEvent;
-        Random rand = new Random();
+        Event event;
         while (!unhandledEvents.isEmpty()){
-            currentEvent = unhandledEvents.remove();
-            ArrayList<Observer> listOfObservers = observers.get(currentEvent.getClass());
-            if (listOfObservers != null && listOfObservers.size() != 0){
-                Integer randomObserverIndex = rand.nextInt(listOfObservers.size());
-                Observer handlingObserver = listOfObservers.get(randomObserverIndex);
-                currentEvent.accept(handlingObserver); // TODO ensure that device is in a same room
-                markEventHandled(currentEvent, handlingObserver);
-            }
-            else{
-                noObserverFound.add(currentEvent);
-            }
+            event = unhandledEvents.remove();
+            List<Observer> listOfObservers = observers.get(event.getClass());
+            boolean handled = handleEvent(event, listOfObservers);
+            if (!handled) noObserverFound.add(event);
         }
         unhandledEvents.addAll(noObserverFound);
     }
 
-    private void markEventHandled(Event event, Observer handler){
-        event.setHandledBy(handler);
+    /**
+     * Processes a single event
+     *
+     * @return true if event was handled
+     */
+    private boolean handleEvent(Event event, List<Observer> observers){
+        if (observers == null || observers.size() == 0) return false;
+
+        Random rand = new Random();
+        ArrayList<Observer> handlingObservers = new ArrayList<>();
+        Collections.shuffle(observers); // To randomize the handling observer if only one needs to be selected
+
+        for (Observer observer : observers){
+            if (observer.canMove() || observer.isInRoomWithSource(event)){
+                event.accept(observer);
+                handlingObservers.add(observer);
+                if (!event.shouldInformAllObservers()) break;
+            }
+        }
+
+        markEventHandled(event, handlingObservers);
+        return true;
+    }
+
+    private void markEventHandled(Event event, List<Observer> handlers){
+        event.setHandledBy(handlers);
         handledEvents.add(event);
     }
 

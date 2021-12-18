@@ -6,12 +6,14 @@ import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.reports.visitors.EventVisitor;
 
+import java.util.List;
+
 // TODO soucasny problem, Event se pouziva v randomeventech u publisheur, kde se entita znovupouziva a publishuje se
 // TODO jenze to potom zkurvi source toho eventu? Je reseni to udelat immutable?
 abstract public class Event{
     protected EventPublisher source;
 
-    protected Observer handledBy;
+    protected List<Observer> handledBy;
 
     public Event() {
     }
@@ -25,6 +27,17 @@ abstract public class Event{
 
     public abstract String getDescription();
 
+    /**
+     * Not all events need to be handled by all its observers.
+     * E.g. Kid cries => only one adult needs to take care of it.
+     *
+     * However some need to be handled by all
+     * E.g. Room is too bright => all window blinds should react.
+     *
+     * @return boolean if all observers should be informed
+     */
+    public abstract boolean shouldInformAllObservers();
+
     public abstract Event makeCopy();
 
     public abstract void accept(EventVisitor visitor);
@@ -33,12 +46,8 @@ abstract public class Event{
         return source;
     }
 
-    public Observer getHandledBy() {
+    public List<Observer> getHandledBy() {
         return handledBy;
-    }
-
-    public void markHandled(Observer handler) {
-        this.handledBy = handler;
     }
 
     public boolean isHandled(){
@@ -49,7 +58,7 @@ abstract public class Event{
         this.source = source;
     }
 
-    public void setHandledBy(Observer handledBy) {
+    public void setHandledBy(List<Observer> handledBy) {
         this.handledBy = handledBy;
     }
 }

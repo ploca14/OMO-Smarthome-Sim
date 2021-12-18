@@ -7,11 +7,18 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 public class IsTooBright extends ImportantEvent {
     private final String description = "A room is too bright.";
 
+    private final boolean forAllObservers = true;
+
     public IsTooBright() {
     }
 
     public IsTooBright(Event event) {
         super(event);
+    }
+
+    @Override
+    public boolean shouldInformAllObservers() {
+        return forAllObservers;
     }
 
     @Override

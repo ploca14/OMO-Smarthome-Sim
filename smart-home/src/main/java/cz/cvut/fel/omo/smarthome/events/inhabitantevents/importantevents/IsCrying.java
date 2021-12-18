@@ -7,11 +7,18 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 public class IsCrying extends ImportantEvent {
     private final String description = "Inhabitant is crying.";
 
+    private final boolean forAllObservers = false;
+
     public IsCrying() {
     }
 
     public IsCrying(Event event) {
         super(event);
+    }
+
+    @Override
+    public boolean shouldInformAllObservers() {
+        return forAllObservers;
     }
 
     @Override

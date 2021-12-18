@@ -5,6 +5,7 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
+import cz.cvut.fel.omo.smarthome.util.NameGenerator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,7 +13,9 @@ import java.util.Random;
 
 // TODO implement observer
 abstract public class Inhabitant implements EventPublisher, Observer {
-    Random rand = new Random();
+    private final Random rand = new Random();
+
+    protected String name;
 
     private Room currentRoom;
 
@@ -29,7 +32,7 @@ abstract public class Inhabitant implements EventPublisher, Observer {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        return this.getClass().getSimpleName() + ": " + name;
     }
 
     public void simulateOneTick(){

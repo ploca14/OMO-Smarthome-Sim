@@ -38,6 +38,10 @@ public class Configuration {
     private Configuration() {
     }
 
+    /**
+     * Tries to parse configuration from a .json file. If a value is missing, then a default value is used.
+     * @param file
+     */
     private Configuration(Reader file){
         try {
             JSONObject jsonObj = (JSONObject) new JSONParser().parse(file);

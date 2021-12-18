@@ -7,11 +7,18 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 public class IsBroken extends ImportantEvent {
     private final String description = "A device is broken.";
 
+    private final boolean forAllObservers = false;
+
     public IsBroken() {
     }
 
     public IsBroken(Event event) {
         super(event);
+    }
+
+    @Override
+    public boolean shouldInformAllObservers() {
+        return forAllObservers;
     }
 
     @Override

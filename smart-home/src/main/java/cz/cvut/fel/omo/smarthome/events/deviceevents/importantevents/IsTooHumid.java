@@ -7,11 +7,18 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 public class IsTooHumid extends ImportantEvent {
     private final String description = "Humidity in a room is too high.";
 
+    private final boolean forAllObservers = true;
+
     public IsTooHumid() {
     }
 
     public IsTooHumid(Event event) {
         super(event);
+    }
+
+    @Override
+    public boolean shouldInformAllObservers() {
+        return forAllObservers;
     }
 
     @Override

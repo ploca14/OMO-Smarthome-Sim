@@ -5,6 +5,7 @@ import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungr
 
 public class Kid extends Person{
     public Kid() {
+        super();
         addRandomlyPublishedEvent(new IsHungry());
         addRandomlyPublishedEvent(new IsCrying());
     }

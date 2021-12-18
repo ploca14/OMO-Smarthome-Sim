@@ -15,6 +15,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
 // TODO move implements observer up to inhabitant
 public class Adult extends Person {
     public Adult() {
+        super();
         addRandomlyPublishedEvent(new IsSad());
     }
 
@@ -25,10 +26,10 @@ public class Adult extends Person {
     @Override
     public void subscribeToEvents() {
         House house = House.getInstance();
-        //house.attach(this, new IsCrying());
-        //house.attach(this, new IsHungry());
-        //house.attach(this, new IsMakingWeirdSounds());
-       // house.attach(this, new IsSad());
+        house.attach(this, new IsCrying());
+        house.attach(this, new IsHungry());
+        house.attach(this, new IsMakingWeirdSounds());
+        house.attach(this, new IsSad());
         house.attach(this, new IsBroken());
     }
 
