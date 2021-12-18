@@ -1,6 +1,7 @@
 package cz.cvut.fel.omo.smarthome.events.abstractevents;
 
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
+import cz.cvut.fel.omo.smarthome.reports.visitors.EventVisitor;
 
 abstract public class ImportantEvent extends Event{
     public ImportantEvent() {
@@ -13,5 +14,10 @@ abstract public class ImportantEvent extends Event{
     @Override
     public void accept(Observer observer) {
         observer.notify(this);
+    }
+
+    @Override
+    public void accept(EventVisitor visitor) {
+        visitor.visitImportantEvent(this);
     }
 }

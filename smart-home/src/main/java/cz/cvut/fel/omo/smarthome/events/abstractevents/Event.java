@@ -4,6 +4,8 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
+import cz.cvut.fel.omo.smarthome.reports.visitors.EventVisitor;
+
 // TODO soucasny problem, Event se pouziva v randomeventech u publisheur, kde se entita znovupouziva a publishuje se
 // TODO jenze to potom zkurvi source toho eventu? Je reseni to udelat immutable?
 abstract public class Event{
@@ -24,6 +26,8 @@ abstract public class Event{
     public abstract String getDescription();
 
     public abstract Event makeCopy();
+
+    public abstract void accept(EventVisitor visitor);
 
     public EventPublisher getSource() {
         return source;

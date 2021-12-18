@@ -9,9 +9,19 @@ import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Kid;
 import cz.cvut.fel.omo.smarthome.simulation.Simulation;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+
 public class InhabitantIteratorTest {
+
+    @BeforeEach
+    public void resetSingleton() throws Exception {
+        Field instance = House.class.getDeclaredField("instance");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     public void next_defaultHouseConfiguration_4ADults2Kids3Dogs(){
