@@ -20,7 +20,6 @@ abstract public class Inhabitant implements EventPublisher {
     }
 
     public void simulateOneTick(){
-        publishRandomEvent();
         if (rand.nextInt(4) == 0){
             publishRandomEvent();
         }

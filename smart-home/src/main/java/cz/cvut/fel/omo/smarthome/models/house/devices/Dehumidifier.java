@@ -1,10 +1,9 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.IsTooHumid;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooHumid;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
-import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
 public class Dehumidifier extends Device{
     public Dehumidifier() {

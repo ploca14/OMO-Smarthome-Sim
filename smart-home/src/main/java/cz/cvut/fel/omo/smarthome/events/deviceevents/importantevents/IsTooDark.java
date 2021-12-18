@@ -1,15 +1,15 @@
-package cz.cvut.fel.omo.smarthome.events.inhabitantevents;
+package cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
 
-public class isCrying extends ImportantEvent {
-    private final String description = "Inhabitant is crying.";
+public class IsTooDark extends ImportantEvent {
+    private final String description = "A room is too dark.";
 
-    public isCrying() {
+    public IsTooDark() {
     }
 
-    public isCrying(Event event) {
+    public IsTooDark(Event event) {
         super(event);
     }
 
@@ -20,6 +20,6 @@ public class isCrying extends ImportantEvent {
 
     @Override
     public Event makeCopy() {
-        return new isCrying(this);
+        return new IsTooDark(this);
     }
 }

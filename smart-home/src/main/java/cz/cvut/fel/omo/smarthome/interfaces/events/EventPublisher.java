@@ -44,7 +44,8 @@ public interface EventPublisher {
     private Event getRandomEvent(){
         Random rand = new Random();
         ArrayList<Event> events = canPublishRandomly.get(this.getClass());
-        Event randomEvent = events.get(rand.nextInt(canPublishRandomly.size())).makeCopy();
+        Integer randomEventIndex = rand.nextInt(events.size());
+        Event randomEvent = events.get(randomEventIndex).makeCopy();
         return randomEvent;
     }
 }

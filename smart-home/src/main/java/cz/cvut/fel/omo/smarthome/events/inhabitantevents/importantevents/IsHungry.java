@@ -1,8 +1,7 @@
-package cz.cvut.fel.omo.smarthome.events.inhabitantevents;
+package cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
-import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 
 public class IsHungry extends ImportantEvent {
     private final String description = "Inhabitant is hungry.";
