@@ -36,6 +36,7 @@ public class Room {
 
     public void removeInhabitant(Inhabitant inhabitant){
         inhabitants.remove(inhabitant);
+        inhabitant.setCurrentRoom(null);
     }
 
     public ArrayList<Device> getDevices() {

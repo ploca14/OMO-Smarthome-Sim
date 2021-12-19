@@ -13,11 +13,11 @@ import java.util.Random;
 
 // TODO implement observer
 abstract public class Inhabitant implements EventPublisher, Observer {
-    private final Random rand = new Random();
+    protected final Random rand = new Random();
 
     protected String name;
 
-    private Room currentRoom;
+    protected Room currentRoom;
 
     private boolean isOutside = true;
 
@@ -61,7 +61,7 @@ abstract public class Inhabitant implements EventPublisher, Observer {
         this.currentRoom = currentRoom;
     }
 
-    public void goOutside(){
+    public void setOutside(){
         this.isOutside = true;
         this.currentRoom = null;
     }

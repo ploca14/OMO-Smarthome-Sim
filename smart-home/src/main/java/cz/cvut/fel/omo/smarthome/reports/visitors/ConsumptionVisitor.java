@@ -1,6 +1,5 @@
 package cz.cvut.fel.omo.smarthome.reports.visitors;
 
-import cz.cvut.fel.omo.smarthome.iterators.DeviceIterator;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;

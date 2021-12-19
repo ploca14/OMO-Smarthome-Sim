@@ -26,10 +26,8 @@ public class SmartHomeIteratorTest {
     }
 
     @BeforeEach
-    public void resetSingleton() throws Exception {
-        Field instance = House.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
+    public void resetSingletons() throws Exception {
+        TestUtils.resetSingletons();
     }
 
     @Test

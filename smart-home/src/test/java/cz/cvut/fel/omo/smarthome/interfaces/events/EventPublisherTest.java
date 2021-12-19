@@ -36,8 +36,8 @@ public class EventPublisherTest {
 
 
     @AfterEach
-    public void resetHouse() throws Exception {
-        TestUtils.resetHouseSingleton();
+    public void resetSingletons() throws Exception {
+        TestUtils.resetSingletons();
     }
 
     /**

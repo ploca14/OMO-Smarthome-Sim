@@ -27,7 +27,7 @@ public class ObserverTest {
 
     @AfterEach
     public void resetHouseSingleton() throws NoSuchFieldException, IllegalAccessException {
-        TestUtils.resetHouseSingleton();
+        TestUtils.resetSingletons();
     }
 
     @Test

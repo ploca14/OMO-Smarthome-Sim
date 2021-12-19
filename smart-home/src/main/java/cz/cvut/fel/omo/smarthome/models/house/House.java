@@ -6,10 +6,9 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.reports.HasReport;
-import cz.cvut.fel.omo.smarthome.iterators.DeviceIterator;
-import cz.cvut.fel.omo.smarthome.iterators.InhabitantIterator;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
+import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.models.vehicles.Vehicle;
 import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;
@@ -148,6 +147,10 @@ public class House implements EventConsumer, Observable, HasReport {
     public SmartHomeIterator<Inhabitant> getInhabitantIterator() { return new SmartHomeIterator<Inhabitant>(this, Inhabitant.class);}
 
     public SmartHomeIterator<Device> getDeviceIterator() { return new SmartHomeIterator<Device>(this, Device.class);}
+
+    public SmartHomeIterator<SportsEquipmentRack> getSportsEquipmentRackIterator() {
+        return new SmartHomeIterator<SportsEquipmentRack>(this, SportsEquipmentRack.class);
+    }
 
     public Queue<Event> getUnhandledEvents() {
         return unhandledEvents;
