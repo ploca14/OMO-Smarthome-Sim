@@ -1,6 +1,5 @@
 package cz.cvut.fel.omo.smarthome.reports.visitors;
 
-import cz.cvut.fel.omo.smarthome.iterators.InhabitantIterator;
 import cz.cvut.fel.omo.smarthome.models.house.Floor;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
@@ -11,8 +10,9 @@ import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
 
+// TODO mozna sjednotit do jednoho interfacu, anebo abstraktni classy
 public class ConfigurationVisitor {
-    StringBuilder reportTextBuilder = new StringBuilder();
+    private StringBuilder reportTextBuilder = new StringBuilder();
 
     public void visitDevice(Device device){
         reportTextBuilder.append("---- ").append(device.toString()).append("\n");

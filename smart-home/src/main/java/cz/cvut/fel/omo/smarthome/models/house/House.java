@@ -15,6 +15,7 @@ import cz.cvut.fel.omo.smarthome.reports.EventReport;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
+import cz.cvut.fel.omo.smarthome.reports.visitors.EventVisitor;
 
 import java.util.*;
 
@@ -149,6 +150,14 @@ public class House implements EventConsumer, Observable, HasReport {
         return new DeviceIterator(this);
     }
 
+    public Queue<Event> getUnhandledEvents() {
+        return unhandledEvents;
+    }
+
+    public Queue<Event> getHandledEvents() {
+        return handledEvents;
+    }
+
     @Override
     public HouseConfigurationReport getHouseConfigurationReport() {
         ConfigurationVisitor configurationVisitor = new ConfigurationVisitor();
@@ -170,7 +179,9 @@ public class House implements EventConsumer, Observable, HasReport {
 
     @Override
     public EventReport getEventReport() {
-        throw new UnsupportedOperationException(); // TODO
+        EventVisitor eventVisitor = new EventVisitor();
+        this.accept(eventVisitor);
+        return eventVisitor.getReport();
     }
 
     public void accept(ConfigurationVisitor configurationVisitor){
@@ -179,5 +190,9 @@ public class House implements EventConsumer, Observable, HasReport {
 
     public void accept(ConsumptionVisitor consumptionVisitor){
         consumptionVisitor.visitHouse(this);
+    }
+
+    public void accept(EventVisitor eventVisitor){
+        eventVisitor.visitHouse(this);
     }
 }
