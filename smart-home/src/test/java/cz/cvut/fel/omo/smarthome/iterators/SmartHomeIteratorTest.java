@@ -3,6 +3,7 @@ package cz.cvut.fel.omo.smarthome.iterators;
 import cz.cvut.fel.omo.smarthome.configuration.Configuration;
 import cz.cvut.fel.omo.smarthome.factories.OrdinaryHouseFactory;
 import cz.cvut.fel.omo.smarthome.models.house.House;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Dog;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
@@ -18,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
-public class InhabitantIteratorTest {
+public class SmartHomeIteratorTest {
     @BeforeAll
     static void loadTestConfiguration() throws IOException, ParseException {
         TestUtils.loadTestConfiguration();
@@ -32,10 +33,25 @@ public class InhabitantIteratorTest {
     }
 
     @Test
-    public void next_defaultHouseConfiguration_4ADults2Kids3Dogs(){
+    public void nextDevice_defaultHouseConfiguration_17devices(){
         Configuration cfg = Configuration.getInstance();
         Simulation simulation = new Simulation(cfg);
-        InhabitantIterator iterator = simulation.getHouse().getInhabitantIterator();
+        SmartHomeIterator<Device> iterator = simulation.getHouse().getDeviceIterator();
+        Integer deviceCount = 0;
+
+        while (iterator.hasNext()){
+            Device device = iterator.next();
+            deviceCount++;
+        }
+
+        Assertions.assertEquals(18, deviceCount);
+    }
+
+    @Test
+    public void nextInhabitant_defaultHouseConfiguration_4ADults2Kids3Dogs(){
+        Configuration cfg = Configuration.getInstance();
+        Simulation simulation = new Simulation(cfg);
+        SmartHomeIterator<Inhabitant> iterator = simulation.getHouse().getInhabitantIterator();
         Integer adultCount = 0;
         Integer kidCount = 0;
         Integer dogCount = 0;
@@ -53,9 +69,9 @@ public class InhabitantIteratorTest {
     }
 
     @Test
-    public void hasNext_emptyHouse_FalseImmediately(){
+    public void hasNextInhabitant_emptyHouse_FalseImmediately(){
         House house = (new OrdinaryHouseFactory()).buildHouse();
-        InhabitantIterator iterator = house.getInhabitantIterator();
+        SmartHomeIterator<Inhabitant> iterator = house.getInhabitantIterator();
 
         boolean hasNext = iterator.hasNext();
 
@@ -64,13 +80,13 @@ public class InhabitantIteratorTest {
     }
 
     @Test
-    public void next_customlyPlacedInhabitans_2Inhabitants(){
+    public void nextInhabitant_customlyPlacedInhabitans_2Inhabitants(){
         Integer inhabitantCount = 0;
         House house = (new OrdinaryHouseFactory()).buildHouse();
         house.getFloors().get(0).getRooms().get(0).addInhabitant(new Adult());
         house.getFloors().get(1).getRooms().get(1).addInhabitant(new Adult());
 
-        InhabitantIterator iterator = house.getInhabitantIterator();
+        SmartHomeIterator<Inhabitant> iterator = house.getInhabitantIterator();
         while (iterator.hasNext()){
             Inhabitant inhabitant = iterator.next();
             inhabitantCount++;

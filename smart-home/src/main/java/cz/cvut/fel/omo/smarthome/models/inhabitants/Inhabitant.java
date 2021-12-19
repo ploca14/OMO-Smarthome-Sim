@@ -50,7 +50,7 @@ abstract public class Inhabitant implements EventPublisher, Observer {
         room.addInhabitant(this);
     }
 
-    @Override // TODO test this might not work properly
+    @Override
     public boolean isInRoomWithSource(Event event) {
         return this.currentRoom.getInhabitants().contains(event.getSource())
                 || this.currentRoom.getDevices().contains(event.getSource());
@@ -59,6 +59,11 @@ abstract public class Inhabitant implements EventPublisher, Observer {
     public void setCurrentRoom(Room currentRoom) {
         this.isOutside = false;
         this.currentRoom = currentRoom;
+    }
+
+    public void goOutside(){
+        this.isOutside = true;
+        this.currentRoom = null;
     }
 
     public boolean isOutside(){

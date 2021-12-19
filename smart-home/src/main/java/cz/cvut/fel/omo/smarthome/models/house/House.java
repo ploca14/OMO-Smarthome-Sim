@@ -8,6 +8,9 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.reports.HasReport;
 import cz.cvut.fel.omo.smarthome.iterators.DeviceIterator;
 import cz.cvut.fel.omo.smarthome.iterators.InhabitantIterator;
+import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
+import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.models.vehicles.Vehicle;
 import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;
 import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
@@ -142,13 +145,9 @@ public class House implements EventConsumer, Observable, HasReport {
         return floors;
     }
 
-    public InhabitantIterator getInhabitantIterator(){
-        return new InhabitantIterator(this);
-    }
+    public SmartHomeIterator<Inhabitant> getInhabitantIterator() { return new SmartHomeIterator<Inhabitant>(this, Inhabitant.class);}
 
-    public DeviceIterator getDeviceIterator(){
-        return new DeviceIterator(this);
-    }
+    public SmartHomeIterator<Device> getDeviceIterator() { return new SmartHomeIterator<Device>(this, Device.class);}
 
     public Queue<Event> getUnhandledEvents() {
         return unhandledEvents;

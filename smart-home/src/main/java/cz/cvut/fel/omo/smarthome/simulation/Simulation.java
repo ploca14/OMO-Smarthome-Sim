@@ -6,6 +6,7 @@ import cz.cvut.fel.omo.smarthome.factories.LuxuriouHouseFactory;
 import cz.cvut.fel.omo.smarthome.factories.OrdinaryHouseFactory;
 import cz.cvut.fel.omo.smarthome.iterators.DeviceIterator;
 import cz.cvut.fel.omo.smarthome.iterators.InhabitantIterator;
+import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
@@ -66,7 +67,7 @@ public class Simulation {
     }
 
     private void simulateDeviceActivity(){
-        DeviceIterator deviceIterator = house.getDeviceIterator();
+        SmartHomeIterator<Device> deviceIterator = house.getDeviceIterator();
         while (deviceIterator.hasNext()){
             Device device = deviceIterator.next();
             device.simulateOneTick();
@@ -74,7 +75,7 @@ public class Simulation {
     }
 
     private void simulateInhabitantActivity(){
-        InhabitantIterator inhabitantIterator = house.getInhabitantIterator();
+        SmartHomeIterator<Inhabitant> inhabitantIterator = house.getInhabitantIterator();
         while (inhabitantIterator.hasNext()){
             Inhabitant inhabitant = inhabitantIterator.next();
             inhabitant.simulateOneTick();

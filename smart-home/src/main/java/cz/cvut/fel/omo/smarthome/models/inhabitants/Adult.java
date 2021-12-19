@@ -11,12 +11,23 @@ import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Manual;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
+import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
+import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
+
+import java.util.Map;
 
 // TODO move implements observer up to inhabitant
 public class Adult extends Person {
+    Map.Entry<SportsEquipment, SportsEquipmentRack> borrowedSportsEquipment;
+
     public Adult() {
         super();
         addRandomlyPublishedEvent(new IsSad());
+    }
+
+    private void returnSportsEquipment(){
+        SportsEquipment equipment = borrowedSportsEquipment.getKey();
+        SportsEquipmentRack rack = borrowedSportsEquipment.getValue();
     }
 
     public void findManual(Device device){

@@ -54,6 +54,14 @@ public class Room {
         return inhabitants;
     }
 
+    public ArrayList<Object> getAllObjectsInRoom(){
+        ArrayList<Object> objects = new ArrayList<>();
+        objects.addAll(this.inhabitants);
+        objects.addAll(this.furniture);
+        objects.addAll(this.windows);
+        objects.addAll(this.devices);
+        return objects;
+    }
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitRoom(this);
     }
