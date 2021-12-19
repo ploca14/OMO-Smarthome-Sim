@@ -9,9 +9,15 @@ import java.io.*;
 import java.lang.reflect.Field;
 
 public class TestUtils {
+    public static void loadTestConfiguration(String fileName) throws IOException, ParseException {
+        InputStream inputStream = TestUtils.class
+                .getClassLoader().getResourceAsStream(fileName);
+        Configuration.loadFromFile(new InputStreamReader(inputStream));
+    }
+
     public static void loadTestConfiguration() throws IOException, ParseException {
         InputStream inputStream = TestUtils.class
-                .getClassLoader().getResourceAsStream("TestCFG.json");
+                .getClassLoader().getResourceAsStream("DefaultTestCFG.json");
         Configuration.loadFromFile(new InputStreamReader(inputStream));
     }
 

@@ -33,4 +33,8 @@ public class OutsideWorld {
             person.returnHome();
         }
     }
+
+    public ArrayList<Person> getPeople() {
+        return people;
+    }
 }
