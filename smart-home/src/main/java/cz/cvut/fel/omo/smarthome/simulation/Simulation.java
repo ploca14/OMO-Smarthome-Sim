@@ -13,6 +13,10 @@ import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Dog;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Kid;
+import cz.cvut.fel.omo.smarthome.reports.Report;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Simulation {
     private final Configuration configuration;
@@ -22,6 +26,8 @@ public class Simulation {
     private OutsideWorld outsideWorld = OutsideWorld.getInstance();
 
     private Integer currentSimulationTick = 1;
+
+    private HashMap<Integer, ArrayList<Report>> reports = new HashMap<>();
 
     public Simulation(Configuration configuration) {
         this.configuration = configuration;
@@ -65,6 +71,8 @@ public class Simulation {
             simulateInhabitantActivity();
             house.handleEvents();
             currentSimulationTick++;
+
+            if (currentSimulationTick % configuration.getReportRate() == 0) saveReports();
         }
     }
 
@@ -82,6 +90,19 @@ public class Simulation {
             Inhabitant inhabitant = inhabitantIterator.next();
             inhabitant.simulateOneTick();
         }
+    }
+
+    public HashMap<Integer, ArrayList<Report>> getReports() {
+        return reports;
+    }
+
+    private void saveReports(){
+        ArrayList<Report> currentReports = new ArrayList<>();
+        currentReports.add(house.getHouseConfigurationReport());
+        currentReports.add(house.getConsumptionReport());
+        currentReports.add(house.getEventReport());
+        // TODO activity report
+        reports.put(currentSimulationTick, currentReports);
     }
 
     public House getHouse() {

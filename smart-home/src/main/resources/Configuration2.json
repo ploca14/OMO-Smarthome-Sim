@@ -1,0 +1,12 @@
+{
+  "simulationLength": 40,
+  "reportRate": 10,
+  "adults": 10,
+  "kids": 5,
+  "dogs": 2,
+  "deviceWearRate": 25,
+  "houseType": "LUXURIOUS",
+  "electricityUnitCost": 5,
+  "waterUnitCost": 4,
+  "gasUnitCost": 2
+}
