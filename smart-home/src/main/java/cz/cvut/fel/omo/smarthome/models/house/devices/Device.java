@@ -7,6 +7,7 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasConsumption;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionTracker;
+import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Manual;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.DeviceState;
@@ -41,6 +42,12 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         // TODO
     }
 
+    public void repair(Manual manual, Warranty warranty){
+        if (manual.getDeviceType().equals(this.getClass()) && warranty.getDevice().equals(this)){
+            durability = (50 + rand.nextInt(100));
+        }
+    }
+
     public void turnOn(){
         state.turnOn(this);
     };
@@ -67,7 +74,7 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     public Warranty getWarranty() {
         if (warranty == null) {
-            warranty = new Warranty();
+            warranty = Warranty.downloadWarranty(this);
         }
 
         return warranty;

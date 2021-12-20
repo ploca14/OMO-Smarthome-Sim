@@ -5,7 +5,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import java.util.HashMap;
 
 public class ManualPool {
-    private static HashMap<Class, Manual> manualHashMap;
+    private static HashMap<Class, Manual> manualHashMap = new HashMap<>();
 
     public static Manual getManual(Device device){
         if (manualHashMap.containsKey(device.getClass())){

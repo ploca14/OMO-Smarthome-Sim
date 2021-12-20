@@ -12,6 +12,7 @@ import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Manual;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
+import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
 import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
 
@@ -25,8 +26,8 @@ public class Adult extends Person {
         addRandomlyPublishedEvent(new IsSad());
     }
 
-    public void findManual(Device device){
-        Manual manual = ManualPool.getManual(device);
+    private Manual findManual(Device device){
+        return ManualPool.getManual(device);
     }
 
     @Override
@@ -46,7 +47,9 @@ public class Adult extends Person {
 
     @Override
     public void notify(IsBroken event) {
-        return;
-        //throw new UnsupportedOperationException();
+        Device brokenDevice = (Device) event.getSource();
+        Manual manual = findManual(brokenDevice);
+        Warranty warranty = brokenDevice.getWarranty();
+        brokenDevice.repair(manual, warranty);
     }
 }

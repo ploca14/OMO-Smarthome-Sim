@@ -1,7 +1,8 @@
-package cz.cvut.fel.omo.smarthome.models;
+package cz.cvut.fel.omo.smarthome.models.inhabitants;
 
 import cz.cvut.fel.omo.smarthome.configuration.Configuration;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
+import cz.cvut.fel.omo.smarthome.models.OutsideWorld;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 import cz.cvut.fel.omo.smarthome.simulation.Simulation;
