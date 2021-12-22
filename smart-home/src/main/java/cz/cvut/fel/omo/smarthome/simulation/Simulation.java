@@ -40,17 +40,20 @@ public class Simulation {
         for (int i = 0; i < configuration.getAdults(); i++){
             Adult adult = new Adult();
             adult.subscribeToEvents();
+            house.addInhabitant(adult);
             startingRoom.addInhabitant(adult);
         }
 
         for (int i = 0; i < configuration.getDogs(); i++){
             Dog dog = new Dog();
-            startingRoom.addInhabitant(new Dog());
+            startingRoom.addInhabitant(dog);
+            house.addInhabitant(dog);
         }
 
         for (int i = 0; i < configuration.getKids(); i++){
             Kid kid = new Kid();
-            startingRoom.addInhabitant(new Kid());
+            startingRoom.addInhabitant(kid);
+            house.addInhabitant(kid);
         }
     }
 
@@ -85,9 +88,7 @@ public class Simulation {
     }
 
     private void simulateInhabitantActivity(){
-        SmartHomeIterator<Inhabitant> inhabitantIterator = house.getInhabitantIterator();
-        while (inhabitantIterator.hasNext()){
-            Inhabitant inhabitant = inhabitantIterator.next();
+        for (Inhabitant inhabitant: house.getInhabitants()) {
             inhabitant.simulateOneTick();
         }
     }
@@ -101,7 +102,7 @@ public class Simulation {
         currentReports.add(house.getHouseConfigurationReport());
         currentReports.add(house.getConsumptionReport());
         currentReports.add(house.getEventReport());
-        // TODO activity report
+        currentReports.add(house.getActivityAndUsageReport());
         reports.put(currentSimulationTick, currentReports);
     }
 

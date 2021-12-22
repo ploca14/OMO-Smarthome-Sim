@@ -31,6 +31,11 @@ public class FloorBuilder {
         return this;
     }
 
+    public FloorBuilder addBedroom() {
+        rooms.add(roomFactory.makeBedroom());
+        return this;
+    }
+
     public Floor getResult(){
         return new Floor(rooms);
     }

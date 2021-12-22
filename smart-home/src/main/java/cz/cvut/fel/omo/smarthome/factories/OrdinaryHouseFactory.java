@@ -20,6 +20,8 @@ public class OrdinaryHouseFactory implements AbstractHouseFactory {
         Floor ordinaryFloor = new FloorBuilder().
                 addKitchen().
                 addLivingRoom().
+                addBedroom().
+                addBedroom().
                 getResult();
         house.addFloor(ordinaryFloor);
 

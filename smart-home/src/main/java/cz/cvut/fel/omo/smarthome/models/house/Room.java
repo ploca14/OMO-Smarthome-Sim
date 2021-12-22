@@ -63,6 +63,7 @@ public class Room {
         objects.addAll(this.devices);
         return objects;
     }
+
     public void accept(ConfigurationVisitor configurationVisitor){
         configurationVisitor.visitRoom(this);
     }

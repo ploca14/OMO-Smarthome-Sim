@@ -12,6 +12,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.DeviceState;
 import cz.cvut.fel.omo.smarthome.models.house.devices.state.IdleState;
+import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
@@ -48,19 +49,19 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         }
     }
 
-    public void turnOn(){
+    protected void turnOn(){
         state.turnOn(this);
     };
 
-    public void turnOff(){
+    protected void turnOff(){
         state.turnOff(this);
     };
 
-    public void activate(){
+    protected void activate(){
         state.activate(this);
     };
 
-    public void deactivate(){
+    protected void deactivate(){
         state.deactivate(this);
     };
 
@@ -92,6 +93,8 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
     public void accept(ConsumptionVisitor consumptionVisitor) {
         consumptionVisitor.visitDevice(this);
     }
+
+    abstract public void accept(Person person);
 
     public void simulateOneTick(){
         consumptionTracker.incrementPerTick();

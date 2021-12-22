@@ -3,11 +3,16 @@ package cz.cvut.fel.omo.smarthome.models.inhabitants;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
+import cz.cvut.fel.omo.smarthome.iterators.RoomIterator;
+import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
+import cz.cvut.fel.omo.smarthome.reports.Action;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ActivityAndUsageVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
-import cz.cvut.fel.omo.smarthome.util.NameGenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -21,6 +26,12 @@ abstract public class Inhabitant implements EventPublisher, Observer {
 
     private boolean isOutside = true;
 
+    private List<Action> actionList = new ArrayList<>();
+
+    public List<Action> getActionList() {
+        return actionList;
+    }
+
     @Override
     public boolean canMove() {
         return true;
@@ -30,18 +41,35 @@ abstract public class Inhabitant implements EventPublisher, Observer {
         configurationVisitor.visitInhabitant(this);
     }
 
+
+    public void accept(ActivityAndUsageVisitor activityAndUsageVisitor) {
+        if (this.actionList.isEmpty()) return;
+
+        activityAndUsageVisitor.visitInhabitant(this);
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ": " + name;
     }
 
     public void simulateOneTick(){
-        if (rand.nextInt(4) == 0){
+        if (rand.nextInt(4) == 0) {
             publishRandomEvent();
+        }
+
+        if (rand.nextInt(4) == 1) {
+            goToRandomRoom();
         }
     }
 
-    private void goToRoom(Room room){
+    private void goToRandomRoom() {
+        RoomIterator roomIterator = House.getInstance().getRoomIterator();
+        Integer randomIndex = rand.nextInt(roomIterator.size());
+        goToRoom(roomIterator.get(randomIndex));
+    }
+
+    public void goToRoom(Room room){
         if (this.currentRoom != null){
             this.currentRoom.removeInhabitant(this);
         }
@@ -68,5 +96,9 @@ abstract public class Inhabitant implements EventPublisher, Observer {
 
     public boolean isOutside(){
         return isOutside;
+    }
+
+    public void logUsage(Device device) {
+        actionList.add(new Action(this, device));
     }
 }

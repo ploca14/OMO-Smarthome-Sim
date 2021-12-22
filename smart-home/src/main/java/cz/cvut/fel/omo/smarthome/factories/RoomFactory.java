@@ -35,7 +35,7 @@ public class RoomFactory {
                 addDevice(new Light()).
                 addDevice(new Light()).
                 addDevice(new AC()).
-                addDevice(new AudioWaveReceiver()).
+                addDevice(new AudioVideoReceiver()).
                 addDevice(new Dehumidifier()).
                 addDevice(new Sensor()).
                 addWindow();
@@ -65,6 +65,18 @@ public class RoomFactory {
                 addWindow(true).
                 addWindow(true).
                 addWindow(true);
+
+        return roomBuilder.getResult();
+    }
+
+    public Room makeBedroom() {
+        RoomBuilder roomBuilder = new RoomBuilder();
+        roomBuilder.
+            addDevice(new TV())
+            .addDevice(new Light())
+            .addDevice(new Light())
+            .addWindow(true)
+            .addWindow(true);
 
         return roomBuilder.getResult();
     }

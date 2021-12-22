@@ -3,6 +3,7 @@ package cz.cvut.fel.omo.smarthome.models.house.devices;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.alerts.IsMakingWeirdSounds;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
+import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 
 public class Fridge extends Device{
     public Fridge() {
@@ -16,4 +17,7 @@ public class Fridge extends Device{
         throw new UnsupportedOperationException();
     }
 
+    public void accept(Person person) {
+        person.use(this);
+    }
 }

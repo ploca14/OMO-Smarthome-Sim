@@ -5,6 +5,7 @@ import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
 import cz.cvut.fel.omo.smarthome.models.house.Window;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
+import cz.cvut.fel.omo.smarthome.models.house.devices.items.CD;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.Furniture;
 import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
@@ -61,6 +62,10 @@ public class ConfigurationVisitor {
 
     public void visitSportsEquipment(SportsEquipment sportsEquipment){
         reportTextBuilder.append("----- ").append(sportsEquipment.toString()).append(("\n"));
+    }
+
+    public void visitCD(CD cd){
+        reportTextBuilder.append("----- ").append(cd.toString()).append(("\n"));
     }
 
     public void visitWindow(Window window){

@@ -3,14 +3,28 @@ package cz.cvut.fel.omo.smarthome.models.inhabitants;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.OutsideWorld;
 import cz.cvut.fel.omo.smarthome.models.house.House;
+import cz.cvut.fel.omo.smarthome.models.house.devices.AC;
+import cz.cvut.fel.omo.smarthome.models.house.devices.AudioVideoReceiver;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Dehumidifier;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Dishwasher;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Fridge;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Light;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Microwave;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Oven;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Sensor;
+import cz.cvut.fel.omo.smarthome.models.house.devices.TV;
+import cz.cvut.fel.omo.smarthome.models.house.devices.WindowBlind;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
 import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
 import cz.cvut.fel.omo.smarthome.util.NameGenerator;
 
+import java.sql.SQLOutput;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class Person extends Inhabitant{
+public abstract class Person extends Inhabitant {
     Map.Entry<SportsEquipment, SportsEquipmentRack> borrowedSportsEquipment;
 
     private boolean waitingForSport = false;
@@ -22,14 +36,20 @@ public abstract class Person extends Inhabitant{
     @Override
     public void simulateOneTick() {
         super.simulateOneTick();
-        if (waitingForSport || rand.nextInt(4) % 2 == 0){
-            waitingForSport = false;
-            goSport();
-        }
-
-        else{
-            // TODO interact with devices
-            return;
+        if (isOutside()) {
+            returnHome();
+        } else {
+            if (waitingForSport || wantsToSport()){
+                waitingForSport = false;
+                goSport();
+            } else {
+                if (this.currentRoom.getDevices().size() > 0) {
+                    ArrayList<Device> devices = this.currentRoom
+                        .getDevices();
+                    Device randomDevice = devices.get(rand.nextInt(devices.size()));
+                    randomDevice.accept(this);
+                }
+            }
         }
     }
 
@@ -72,8 +92,35 @@ public abstract class Person extends Inhabitant{
     }
 
     public void returnHome(){
-        House.getInstance().getFloors().get(0).getRooms().get(0).addInhabitant(this);
+        waitingForSport = false;
+        goToRoom(House.getInstance().getRoomIterator().get(0));
         returnSportsEquipment();
         subscribeToEvents();
     }
+
+    private boolean wantsToSport() {
+        return rand.nextBoolean();
+    }
+
+    public abstract void use(AC ac);
+
+    public abstract void use(AudioVideoReceiver audioVideoReceiver);
+
+    public abstract void use(Dehumidifier dehumidifier);
+
+    public abstract void use(Dishwasher dishwasher);
+
+    public abstract void use(Fridge fridge);
+
+    public abstract void use(Light light);
+
+    public abstract void use(Microwave microwave);
+
+    public abstract void use(Oven oven);
+
+    public abstract void use(TV tv);
+
+    public abstract void use(WindowBlind windowBlind);
+
+    public abstract void use(Sensor sensor);
 }

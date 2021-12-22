@@ -49,6 +49,7 @@ public class Main {
                    myWriter.write("\n");
                }
             }
+            myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

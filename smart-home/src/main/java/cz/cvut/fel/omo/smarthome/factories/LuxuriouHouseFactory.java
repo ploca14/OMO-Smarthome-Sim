@@ -27,6 +27,10 @@ public class LuxuriouHouseFactory implements AbstractHouseFactory {
         Floor livingFloor = floorBuilder.
                 addLivingRoom().
                 addTVRoom().
+                addBedroom().
+                addBedroom().
+                addBedroom().
+                addBedroom().
                 getResult();
         house.addFloor(livingFloor);
 

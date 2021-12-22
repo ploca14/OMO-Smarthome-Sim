@@ -6,15 +6,18 @@ import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.reports.HasReport;
+import cz.cvut.fel.omo.smarthome.iterators.RoomIterator;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
+import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.models.vehicles.Vehicle;
 import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;
 import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
 import cz.cvut.fel.omo.smarthome.reports.EventReport;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
+import cz.cvut.fel.omo.smarthome.reports.visitors.ActivityAndUsageVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 import cz.cvut.fel.omo.smarthome.reports.visitors.EventVisitor;
@@ -31,6 +34,8 @@ public class House implements EventConsumer, Observable, HasReport {
     private Queue<Event> unhandledEvents = new LinkedList<>();
 
     private Queue<Event> handledEvents = new LinkedList<>();
+
+    private final List<Inhabitant> inhabitants = new ArrayList<>();
 
     private static House instance;
 
@@ -75,7 +80,7 @@ public class House implements EventConsumer, Observable, HasReport {
      * 3. Mark the event as handled
      * 4. Enqueue the events again which could not be handled by any observer.
      */
-    public void handleEvents(){
+    public void  handleEvents(){
         ArrayList<Event> noObserverFound = new ArrayList<>();
         Event event;
         while (!unhandledEvents.isEmpty()){
@@ -152,6 +157,10 @@ public class House implements EventConsumer, Observable, HasReport {
         return new SmartHomeIterator<SportsEquipmentRack>(this, SportsEquipmentRack.class);
     }
 
+    public RoomIterator getRoomIterator() {
+        return new RoomIterator(this);
+    }
+
     public Queue<Event> getUnhandledEvents() {
         return unhandledEvents;
     }
@@ -169,7 +178,11 @@ public class House implements EventConsumer, Observable, HasReport {
 
     @Override
     public ActivityAndUsageReport getActivityAndUsageReport() {
-        throw new UnsupportedOperationException(); // TODO
+        ActivityAndUsageVisitor activityAndUsageVisitor = new ActivityAndUsageVisitor();
+        for (Inhabitant inhabitant: inhabitants) {
+            inhabitant.accept(activityAndUsageVisitor);
+        }
+        return activityAndUsageVisitor.getReport();
     }
 
     @Override
@@ -196,5 +209,13 @@ public class House implements EventConsumer, Observable, HasReport {
 
     public void accept(EventVisitor eventVisitor){
         eventVisitor.visitHouse(this);
+    }
+
+    public void addInhabitant(Inhabitant inhabitant) {
+        inhabitants.add(inhabitant);
+    }
+
+    public List<Inhabitant> getInhabitants() {
+        return Collections.unmodifiableList(inhabitants);
     }
 }
