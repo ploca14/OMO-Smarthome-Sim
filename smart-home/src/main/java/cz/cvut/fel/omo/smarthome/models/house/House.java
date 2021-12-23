@@ -1,6 +1,7 @@
 package cz.cvut.fel.omo.smarthome.models.house;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneCooking;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventConsumer;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;

@@ -15,9 +15,9 @@ public class Configuration {
 
     private static Configuration instance;
 
-    private Integer simulationLength = 20;
+    private Integer simulationLength = 100;
 
-    private Integer reportRate = 10; // After how many ticks the reports should be generated
+    private Integer reportRate = 50; // After how many ticks the reports should be generated
 
     private Integer adults = 4;
 
@@ -25,7 +25,7 @@ public class Configuration {
 
     private Integer kids = 2;
 
-    private Integer deviceWearRate = 10; // How much durability device loses after a tick
+    private Integer deviceWearRate = 1; // How much durability device loses after a tick
 
     private HouseType houseType = HouseType.ORDINARY;
 

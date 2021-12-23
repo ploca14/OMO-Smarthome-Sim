@@ -3,10 +3,12 @@ package cz.cvut.fel.omo.smarthome.models.inhabitants;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.alerts.IsMakingWeirdSounds;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneCooking;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneWashing;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
+import cz.cvut.fel.omo.smarthome.interfaces.traits.HasCook;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.AC;
@@ -26,6 +28,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.CD;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.Food;
+import cz.cvut.fel.omo.smarthome.simulation.Simulation;
 import java.util.Optional;
 
 // TODO move implements observer up to inhabitant
@@ -126,7 +129,10 @@ public class Adult extends Person {
         switch (choice) {
             case 0 -> microwave.turnOff();
             case 1 -> microwave.turnOn();
-            case 2 -> getFoodFromFridge().ifPresent(microwave::cookFood);
+            case 2 -> getFoodFromFridge().ifPresent(food -> {
+                microwave.cookFood(food);
+                House.getInstance().attach(this, new IsDoneCooking());
+            });
         }
 
         logUsage(microwave);
@@ -138,7 +144,10 @@ public class Adult extends Person {
         switch (choice) {
             case 0 -> oven.turnOff();
             case 1 -> oven.turnOn();
-            case 2 -> getFoodFromFridge().ifPresent(oven::cookFood);
+            case 2 -> getFoodFromFridge().ifPresent(food -> {
+                oven.cookFood(food);
+                House.getInstance().attach(this, new IsDoneCooking());
+            });
         }
 
         logUsage(oven);
@@ -214,6 +223,13 @@ public class Adult extends Person {
     public void notify(IsDoneWashing event){
         Dishwasher dishwasher = (Dishwasher) event.getSource();
         dishwasher.stop();
+        House.getInstance().detach(this, event);
+    }
+
+    @Override
+    public void notify(IsDoneCooking event){
+        HasCook device = (HasCook) event.getSource();
+        device.getCookedFood();
         House.getInstance().detach(this, event);
     }
 }

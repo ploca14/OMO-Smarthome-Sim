@@ -20,6 +20,7 @@ public class Dishwasher extends Device {
     public void subscribeToEvents() {
         // TODO
     }
+
     @Override
     public void notify(Event event) {
         throw new UnsupportedOperationException();

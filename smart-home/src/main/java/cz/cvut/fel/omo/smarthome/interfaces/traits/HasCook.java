@@ -11,15 +11,12 @@ public interface HasCook {
     void setCookState(CookState cookState);
 
     default boolean simulateCooking() {
-        if (!getCookState().equals(CookState.Off))
-            getCookState().nextState();
-
         if (getCookState().equals(CookState.Done)) {
             getContents().cook();
-            return true;
         }
 
-        return false;
+        setCookState(getCookState().nextState());
+        return getContents().isCooked();
     }
 
     default boolean startCooking(Food food) {
@@ -29,5 +26,12 @@ public interface HasCook {
             return true;
         }
         return false;
+    }
+
+    default Food getCookedFood() {
+        Food tmp = getContents();
+        setContents(null);
+        setCookState(CookState.Off);
+        return tmp;
     }
 }

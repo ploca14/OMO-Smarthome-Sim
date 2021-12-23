@@ -36,19 +36,15 @@ public abstract class Person extends Inhabitant {
     @Override
     public void simulateOneTick() {
         super.simulateOneTick();
-        if (isOutside()) {
-            returnHome();
+        if (waitingForSport || wantsToSport()){
+            waitingForSport = false;
+            goSport();
         } else {
-            if (waitingForSport || wantsToSport()){
-                waitingForSport = false;
-                goSport();
-            } else {
-                if (this.currentRoom.getDevices().size() > 0) {
-                    ArrayList<Device> devices = this.currentRoom
-                        .getDevices();
-                    Device randomDevice = devices.get(rand.nextInt(devices.size()));
-                    randomDevice.accept(this);
-                }
+            if (this.currentRoom.getDevices().size() > 0) {
+                ArrayList<Device> devices = this.currentRoom
+                    .getDevices();
+                Device randomDevice = devices.get(rand.nextInt(devices.size()));
+                randomDevice.accept(this);
             }
         }
     }

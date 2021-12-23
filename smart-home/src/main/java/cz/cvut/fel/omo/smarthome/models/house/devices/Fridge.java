@@ -6,6 +6,7 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumpt
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.Food;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Stack;
 
 public class Fridge extends Device {
@@ -16,6 +17,11 @@ public class Fridge extends Device {
         this.idleConsumptionRate = DeviceConsumptionRate.of(0,0, 5);
         this.activeConsumptionRate = DeviceConsumptionRate.of(0, 0, 40);
         addRandomlyPublishedEvent(new IsMakingWeirdSounds());
+
+        Random rand = new Random();
+        for (int i = 0; i < rand.nextInt(25); i++) {
+            storeFood(new Food());
+        }
     }
 
     @Override

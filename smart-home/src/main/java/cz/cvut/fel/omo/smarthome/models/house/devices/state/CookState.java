@@ -22,7 +22,7 @@ public enum CookState {
     Done {
         @Override
         public CookState nextState() {
-            return this;
+            return Off;
         }
     };
 

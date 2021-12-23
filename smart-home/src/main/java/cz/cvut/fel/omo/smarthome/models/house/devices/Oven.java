@@ -1,6 +1,8 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneCooking;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneWashing;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasCook;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.Food;
@@ -29,9 +31,11 @@ public class Oven extends Device implements HasCook {
     @Override
     public void simulateOneTick(){
         super.simulateOneTick();
-        if (simulateCooking()) {
-            // TODO: Dispatch done cooking event
-            deactivate();
+        if (!cookState.equals(CookState.Off)) {
+            if (simulateCooking()) {
+                publishEvent(new IsDoneCooking());
+                deactivate();
+            }
         }
     }
 

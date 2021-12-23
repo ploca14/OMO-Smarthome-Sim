@@ -9,6 +9,8 @@ import cz.cvut.fel.omo.smarthome.models.OutsideWorld;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.Room;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Microwave;
+import cz.cvut.fel.omo.smarthome.models.house.devices.Oven;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Dog;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
@@ -70,8 +72,8 @@ public class Simulation {
     public void execute(){
         while (currentSimulationTick != configuration.getSimulationLength() + 1){
             outsideWorld.removeAllPeople();
-            simulateDeviceActivity();
             simulateInhabitantActivity();
+            simulateDeviceActivity();
             house.handleEvents();
             currentSimulationTick++;
 
@@ -88,7 +90,9 @@ public class Simulation {
     }
 
     private void simulateInhabitantActivity(){
-        for (Inhabitant inhabitant: house.getInhabitants()) {
+        SmartHomeIterator<Inhabitant> inhabitantIterator = house.getInhabitantIterator();
+        while (inhabitantIterator.hasNext()){
+            Inhabitant inhabitant = inhabitantIterator.next();
             inhabitant.simulateOneTick();
         }
     }

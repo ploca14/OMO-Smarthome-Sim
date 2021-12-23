@@ -5,7 +5,7 @@ import cz.cvut.fel.omo.smarthome.events.abstractevents.ImportantEvent;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 
 public class IsDoneWashing extends ImportantEvent {
-    private final String description = "The " + source.toString() + " is done washing.";
+    private final String description = "The dishwasher is done washing.";
 
     private final boolean forAllObservers = false;
 
