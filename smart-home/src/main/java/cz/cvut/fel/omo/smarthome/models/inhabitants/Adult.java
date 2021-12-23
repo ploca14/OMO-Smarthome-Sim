@@ -6,6 +6,7 @@ import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
+import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.AC;
 import cz.cvut.fel.omo.smarthome.models.house.devices.AudioVideoReceiver;
@@ -23,6 +24,8 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Manual;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.CD;
+import cz.cvut.fel.omo.smarthome.models.house.devices.items.Food;
+import java.util.Optional;
 
 // TODO move implements observer up to inhabitant
 public class Adult extends Person {
@@ -33,7 +36,7 @@ public class Adult extends Person {
 
     @Override
     public void use(AC ac) {
-        int choice = rand.nextInt(6);
+        int choice = rand.nextInt(6); 
         switch (choice) {
             case 0 -> ac.turnOn();
             case 1 -> ac.turnOff();
@@ -91,6 +94,12 @@ public class Adult extends Person {
 
     @Override
     public void use(Fridge fridge) {
+        int choice = rand.nextInt(2);
+        switch (choice) {
+            case 0 -> fridge.takeFood();
+            case 1 -> fridge.storeFood(new Food());
+        }
+
         logUsage(fridge);
     }
 
@@ -109,12 +118,39 @@ public class Adult extends Person {
 
     @Override
     public void use(Microwave microwave) {
+        int choice = rand.nextInt(3);
+        switch (choice) {
+            case 0 -> microwave.turnOff();
+            case 1 -> microwave.turnOn();
+            case 2 -> getFoodFromFridge().ifPresent(microwave::cookFood);
+        }
+
         logUsage(microwave);
     }
 
     @Override
     public void use(Oven oven) {
+        int choice = rand.nextInt(3);
+        switch (choice) {
+            case 0 -> oven.turnOff();
+            case 1 -> oven.turnOn();
+            case 2 -> getFoodFromFridge().ifPresent(oven::cookFood);
+        }
+
         logUsage(oven);
+    }
+
+    private Optional<Food> getFoodFromFridge() {
+        SmartHomeIterator<Device> iterator = House.getInstance().getDeviceIterator();
+        while (iterator.hasNext()) {
+            Device device = iterator.next();
+            // TODO: Tohle se mi nelíbí :D
+            if (device instanceof Fridge) {
+                return Optional.of(((Fridge) device).takeFood());
+            }
+        }
+
+        return Optional.empty();
     }
 
     @Override
@@ -130,7 +166,7 @@ public class Adult extends Person {
 
     @Override
     public void use(WindowBlind windowBlind) {
-        int choice = rand.nextInt(4);
+        int choice = rand.nextInt(2);
         switch (choice) {
             case 0 -> windowBlind.open();
             case 1 -> windowBlind.close();

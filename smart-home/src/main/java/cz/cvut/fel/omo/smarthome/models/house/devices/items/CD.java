@@ -1,14 +1,12 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices.items;
 
-import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
+import java.util.Random;
 
 public class CD extends Item {
-    public void accept(ConfigurationVisitor configurationVisitor){
-        configurationVisitor.visitCD(this);
-    }
+    Integer number = new Random().nextInt();
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        return this.getClass().getSimpleName() + " " + number.toString();
     }
 }

@@ -101,7 +101,7 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         simulateDeviceWear();
     }
 
-    private void simulateDeviceWear(){
+    protected void simulateDeviceWear(){
         if (!isBroken()){
             durability -= Configuration.getInstance().getDeviceWearRate();
             if (isBroken()) {
