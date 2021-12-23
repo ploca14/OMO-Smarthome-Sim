@@ -34,6 +34,10 @@ public class Fridge extends Device {
     }
 
     public Food takeFood() {
-        return contents.pop();
+        return contents.isEmpty() ? null : contents.pop();
+    }
+
+    public boolean isEmpty() {
+        return contents.isEmpty();
     }
 }

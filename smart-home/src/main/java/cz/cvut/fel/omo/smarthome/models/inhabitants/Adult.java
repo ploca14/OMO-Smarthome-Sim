@@ -3,6 +3,7 @@ package cz.cvut.fel.omo.smarthome.models.inhabitants;
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.alerts.IsMakingWeirdSounds;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneWashing;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
@@ -85,7 +86,10 @@ public class Adult extends Person {
     public void use(Dishwasher dishwasher) {
         int choice = rand.nextInt(2);
         switch (choice) {
-            case 0 -> dishwasher.start();
+            case 0 -> {
+                dishwasher.start();
+                House.getInstance().attach(this, new IsDoneWashing());
+            }
             case 1 -> dishwasher.stop();
         }
 
@@ -141,12 +145,11 @@ public class Adult extends Person {
     }
 
     private Optional<Food> getFoodFromFridge() {
-        SmartHomeIterator<Device> iterator = House.getInstance().getDeviceIterator();
+        SmartHomeIterator<Fridge> iterator = new SmartHomeIterator<>(House.getInstance(), Fridge.class);
         while (iterator.hasNext()) {
-            Device device = iterator.next();
-            // TODO: Tohle se mi nelíbí :D
-            if (device instanceof Fridge) {
-                return Optional.of(((Fridge) device).takeFood());
+            Fridge fridge = iterator.next();
+            if (!fridge.isEmpty()) {
+                return Optional.of(fridge.takeFood());
             }
         }
 
@@ -155,7 +158,7 @@ public class Adult extends Person {
 
     @Override
     public void use(TV tv) {
-        int choice = rand.nextInt(4);
+        int choice = rand.nextInt(2);
         switch (choice) {
             case 0 -> tv.turnOn();
             case 1 -> tv.turnOff();
@@ -205,5 +208,12 @@ public class Adult extends Person {
         Manual manual = findManual(brokenDevice);
         Warranty warranty = brokenDevice.getWarranty();
         brokenDevice.repair(manual, warranty);
+    }
+
+    @Override
+    public void notify(IsDoneWashing event){
+        Dishwasher dishwasher = (Dishwasher) event.getSource();
+        dishwasher.stop();
+        House.getInstance().detach(this, event);
     }
 }

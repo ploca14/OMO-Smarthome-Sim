@@ -52,5 +52,9 @@ public interface Observer {
 
     default void notify(IsHungry event){};
 
-    default void notify (IsBroken event){};
+    default void notify(IsBroken event){};
+
+    default void notify(IsDoneWashing event){};
+
+    default void notify(IsDoneCooking event){};
 }
