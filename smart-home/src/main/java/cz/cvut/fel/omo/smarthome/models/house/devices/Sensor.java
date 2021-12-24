@@ -20,11 +20,6 @@ public abstract class Sensor extends Device {
     }
 
     @Override
-    public void subscribeToEvents() {
-        // TODO
-    }
-
-    @Override
     public void notify(Event event) {
         throw new UnsupportedOperationException();
     }
