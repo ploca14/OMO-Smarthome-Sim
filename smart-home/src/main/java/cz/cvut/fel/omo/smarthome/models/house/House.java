@@ -1,7 +1,6 @@
 package cz.cvut.fel.omo.smarthome.models.house;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneCooking;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventConsumer;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observable;
@@ -11,7 +10,6 @@ import cz.cvut.fel.omo.smarthome.iterators.RoomIterator;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.devices.Device;
 import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
-import cz.cvut.fel.omo.smarthome.models.inhabitants.Adult;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.models.vehicles.Vehicle;
 import cz.cvut.fel.omo.smarthome.reports.ActivityAndUsageReport;

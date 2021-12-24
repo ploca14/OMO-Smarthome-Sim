@@ -18,7 +18,8 @@ public class Room {
 
     public void addDevice(Device device){
         devices.add(device);
-        //device.subscribeToEvents();  TODO UNCOMMENT
+        device.subscribeToEvents();
+        device.setRoom(this);
     }
 
     public void addWindow(Window window){

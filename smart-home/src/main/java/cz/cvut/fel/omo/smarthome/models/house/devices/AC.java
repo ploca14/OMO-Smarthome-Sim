@@ -1,7 +1,10 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooBright;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooHot;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasTemperature;
+import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
@@ -16,7 +19,7 @@ public class AC extends Device implements HasTemperature {
 
     @Override
     public void subscribeToEvents() {
-        // TODO
+        House.getInstance().attach(this, new IsTooHot());
     }
 
     public void accept(Person person) {
@@ -40,17 +43,23 @@ public class AC extends Device implements HasTemperature {
 
     public void turnOn(){
         super.turnOn();
-    };
+    }
 
     public void turnOff(){
         super.turnOff();
-    };
+    }
 
     public void start(){
         super.activate();
-    };
+    }
 
     public void stop(){
         super.deactivate();
-    };
+    }
+
+    @Override
+    public void notify(IsTooHot event) {
+        start();
+        lowerTemperature();
+    }
 }

@@ -54,11 +54,11 @@ abstract public class Inhabitant implements EventPublisher, Observer {
     }
 
     public void simulateOneTick(){
-        if (rand.nextInt(4) == 0) {
-            publishRandomEvent();
-        }
+        double probability = this.rand.nextDouble();
 
-        if (rand.nextInt(4) == 1) {
+        if (probability <= 0.1) { // 10% chance
+            publishRandomEvent();
+        } else if (probability <= 0.7) { // 70% chance
             goToRandomRoom();
         }
     }
@@ -78,12 +78,6 @@ abstract public class Inhabitant implements EventPublisher, Observer {
         room.addInhabitant(this);
     }
 
-    @Override
-    public boolean isInRoomWithSource(Event event) {
-        return this.currentRoom.getInhabitants().contains(event.getSource())
-                || this.currentRoom.getDevices().contains(event.getSource());
-    }
-
     public void setCurrentRoom(Room currentRoom) {
         this.isOutside = false;
         this.currentRoom = currentRoom;
@@ -100,5 +94,10 @@ abstract public class Inhabitant implements EventPublisher, Observer {
 
     public void logUsage(Device device) {
         actionList.add(new Action(this, device));
+    }
+
+    @Override
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 }

@@ -96,7 +96,7 @@ public abstract class Person extends Inhabitant {
     }
 
     private boolean wantsToSport() {
-        return rand.nextBoolean() && !isBusy;
+        return rand.nextBoolean() && !isBusy; // 50% chance if not busy
     }
 
     public abstract void use(AC ac);

@@ -191,9 +191,7 @@ public class Adult extends Person {
     }
 
     @Override
-    public void use(Sensor sensor) {
-        logUsage(sensor);
-    }
+    public void use(Sensor sensor) {}
 
     private Manual findManual(Device device){
         return ManualPool.getManual(device);

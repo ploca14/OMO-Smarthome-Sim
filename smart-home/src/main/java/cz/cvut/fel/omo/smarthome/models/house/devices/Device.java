@@ -6,6 +6,7 @@ import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsBroken;
 import cz.cvut.fel.omo.smarthome.interfaces.events.EventPublisher;
 import cz.cvut.fel.omo.smarthome.interfaces.events.Observer;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasConsumption;
+import cz.cvut.fel.omo.smarthome.models.house.Room;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionTracker;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Manual;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
@@ -33,15 +34,14 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     private Warranty warranty;
 
+    private Room room;
+
     @Override
     public DeviceConsumptionTracker getConsumptionTracker() {
         return consumptionTracker;
     }
 
-    public void subscribeToEvents() {
-        throw new UnsupportedOperationException();
-        // TODO
-    }
+    public void subscribeToEvents() {}
 
     public void repair(Manual manual, Warranty warranty){
         if (manual.getDeviceType().equals(this.getClass()) && warranty.getDevice().equals(this)){
@@ -121,7 +121,7 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     @Override
     public boolean canMove() {
-        return true;
+        return false;
     }
 
     @Override
@@ -129,8 +129,12 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         return this.getClass().getSimpleName();
     }
 
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     @Override
-    public boolean isInRoomWithSource(Event event) {
-        throw new UnsupportedOperationException();
+    public Room getCurrentRoom() {
+        return room;
     }
 }

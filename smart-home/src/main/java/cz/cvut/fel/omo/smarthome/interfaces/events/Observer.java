@@ -6,6 +6,7 @@ import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.*;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
+import cz.cvut.fel.omo.smarthome.models.house.Room;
 
 /**
  * Interface for notifying observers about an event, they listen to.
@@ -32,7 +33,12 @@ public interface Observer {
      */
     boolean canMove();
 
-    boolean isInRoomWithSource(Event event);
+    default boolean isInRoomWithSource(Event event) {
+        return getCurrentRoom().getInhabitants().contains(event.getSource())
+            || getCurrentRoom().getDevices().contains(event.getSource());
+    }
+
+    Room getCurrentRoom();
 
     default void notify(Event event){};
 

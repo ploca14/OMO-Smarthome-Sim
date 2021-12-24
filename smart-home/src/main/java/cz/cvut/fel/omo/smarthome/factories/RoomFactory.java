@@ -19,7 +19,7 @@ public class RoomFactory {
                 addDevice(new Oven()).
                 addDevice(new Microwave()).
                 addDevice(new AC()).
-                addDevice(new Sensor()).
+                addDevice(new LightSensor()).
                 addWindow(true).
                 addWindow();
 
@@ -37,7 +37,9 @@ public class RoomFactory {
                 addDevice(new AC()).
                 addDevice(new AudioVideoReceiver()).
                 addDevice(new Dehumidifier()).
-                addDevice(new Sensor()).
+                addDevice(new LightSensor()).
+                addDevice(new HumiditySensor()).
+                addDevice(new TemperatureSensor()).
                 addWindow();
 
         return roomBuilder.getResult();
@@ -61,6 +63,7 @@ public class RoomFactory {
                 addDevice(new TV()).
                 addDevice(new TV()).
                 addDevice(new Fridge()).
+                addDevice(new LightSensor()).
                 addWindow(true).
                 addWindow(true).
                 addWindow(true).
@@ -75,6 +78,7 @@ public class RoomFactory {
             addDevice(new TV())
             .addDevice(new Light())
             .addDevice(new Light())
+            .addDevice(new LightSensor())
             .addWindow(true)
             .addWindow(true);
 

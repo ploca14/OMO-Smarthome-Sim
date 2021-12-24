@@ -1,12 +1,14 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
+import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneCooking;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooHumid;
+import cz.cvut.fel.omo.smarthome.interfaces.traits.HasCook;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 
-public class Dehumidifier extends Device{
+public class Dehumidifier extends Device {
     public Dehumidifier() {
         this.idleConsumptionRate = DeviceConsumptionRate.of(0,0, 1);
         this.activeConsumptionRate = DeviceConsumptionRate.of(0, 0, 10);
@@ -40,5 +42,10 @@ public class Dehumidifier extends Device{
 
     public void stop() {
         super.deactivate();
+    }
+
+    @Override
+    public void notify(IsTooHumid event) {
+        start();
     }
 }
