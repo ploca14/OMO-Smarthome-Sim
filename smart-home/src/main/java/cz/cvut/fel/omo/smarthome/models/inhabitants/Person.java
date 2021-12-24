@@ -28,6 +28,7 @@ public abstract class Person extends Inhabitant {
     Map.Entry<SportsEquipment, SportsEquipmentRack> borrowedSportsEquipment;
 
     private boolean waitingForSport = false;
+    protected boolean isBusy = false;
 
     public Person() {
         name = NameGenerator.getPersonName();
@@ -95,7 +96,7 @@ public abstract class Person extends Inhabitant {
     }
 
     private boolean wantsToSport() {
-        return rand.nextBoolean();
+        return rand.nextBoolean() && !isBusy;
     }
 
     public abstract void use(AC ac);

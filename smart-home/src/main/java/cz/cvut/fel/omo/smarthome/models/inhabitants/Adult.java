@@ -33,7 +33,7 @@ import java.util.Optional;
 
 // TODO move implements observer up to inhabitant
 public class Adult extends Person {
-    public Adult() {
+        public Adult() {
         super();
         addRandomlyPublishedEvent(new IsSad());
     }
@@ -91,6 +91,7 @@ public class Adult extends Person {
         switch (choice) {
             case 0 -> {
                 dishwasher.start();
+                isBusy = true;
                 House.getInstance().attach(this, new IsDoneWashing());
             }
             case 1 -> dishwasher.stop();
@@ -131,6 +132,7 @@ public class Adult extends Person {
             case 1 -> microwave.turnOn();
             case 2 -> getFoodFromFridge().ifPresent(food -> {
                 microwave.cookFood(food);
+                isBusy = true;
                 House.getInstance().attach(this, new IsDoneCooking());
             });
         }
@@ -146,6 +148,7 @@ public class Adult extends Person {
             case 1 -> oven.turnOn();
             case 2 -> getFoodFromFridge().ifPresent(food -> {
                 oven.cookFood(food);
+                isBusy = true;
                 House.getInstance().attach(this, new IsDoneCooking());
             });
         }
@@ -223,6 +226,7 @@ public class Adult extends Person {
     public void notify(IsDoneWashing event){
         Dishwasher dishwasher = (Dishwasher) event.getSource();
         dishwasher.stop();
+        isBusy = false;
         House.getInstance().detach(this, event);
     }
 
@@ -230,6 +234,7 @@ public class Adult extends Person {
     public void notify(IsDoneCooking event){
         HasCook device = (HasCook) event.getSource();
         device.getCookedFood();
+        isBusy = false;
         House.getInstance().detach(this, event);
     }
 }
