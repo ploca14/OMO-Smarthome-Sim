@@ -1,6 +1,5 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
-import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooBright;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooDark;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.Brightness;
@@ -28,11 +27,6 @@ public class Light extends Device {
 
     public void accept(Person person) {
         person.use(this);
-    }
-
-    @Override
-    public void notify(Event event) {
-        throw new UnsupportedOperationException();
     }
 
     public void turnOn() {

@@ -1,6 +1,5 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
-import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooBright;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooDark;
 import cz.cvut.fel.omo.smarthome.models.house.House;
@@ -8,7 +7,6 @@ import cz.cvut.fel.omo.smarthome.models.house.Window;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 import cz.cvut.fel.omo.smarthome.reports.visitors.ConfigurationVisitor;
-import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
 public class WindowBlind extends Device {
     private final Window window;
@@ -25,11 +23,6 @@ public class WindowBlind extends Device {
     public void subscribeToEvents() {
         House.getInstance().attach(this, new IsTooBright());
         House.getInstance().attach(this, new IsTooDark());
-    }
-
-    @Override
-    public void notify(Event event) {
-        throw new UnsupportedOperationException();
     }
 
     /**

@@ -1,5 +1,6 @@
 package cz.cvut.fel.omo.smarthome.configuration;
 
+import cz.cvut.fel.omo.smarthome.exceptions.ParsingException;
 import netscape.javascript.JSObject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -57,7 +58,7 @@ public class Configuration {
             this.gasUnitCost = getIntFromJson(jsonObj, "gasUnitCost") == null ? this.gasUnitCost : getIntFromJson(jsonObj, "gasUnitCost");
 
         } catch (IOException | ParseException e) {
-            throw new RuntimeException("Failed to parse Configuration from file" + file.toString());
+            throw new ParsingException("Failed to parse Configuration from file" + file.toString());
         }
     }
 

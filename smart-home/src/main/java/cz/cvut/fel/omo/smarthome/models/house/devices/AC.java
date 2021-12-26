@@ -24,11 +24,6 @@ public class AC extends Device {
         person.use(this);
     }
 
-    @Override
-    public void notify(Event event) {
-        throw new UnsupportedOperationException();
-    }
-
     public Temperature getTemperature() {
         return temperature;
     }

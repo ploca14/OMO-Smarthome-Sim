@@ -1,10 +1,9 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
-import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
+import cz.cvut.fel.omo.smarthome.exceptions.IllegalOperationException;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.CD;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
-import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 import java.util.Optional;
 
 public class AudioVideoReceiver extends Device {
@@ -15,17 +14,12 @@ public class AudioVideoReceiver extends Device {
         this.activeConsumptionRate = DeviceConsumptionRate.of(0, 0, 55);
     }
 
-    @Override
-    public void notify(Event event) {
-        throw new UnsupportedOperationException();
-    }
-
     public void accept(Person person) {
         person.use(this);
     }
 
     public void insertCD(CD cd) {
-        if (this.cd.isPresent()) throw new IllegalStateException();
+        if (this.cd.isPresent()) throw new IllegalOperationException("Unable to insert CD");
 
         this.cd = Optional.of(cd);
     }
@@ -34,8 +28,8 @@ public class AudioVideoReceiver extends Device {
         return cd.isPresent();
     }
 
-    public CD removeCD() throws IllegalStateException {
-        if (cd.isEmpty()) throw new IllegalStateException();
+    public CD removeCD() throws IllegalOperationException {
+        if (cd.isEmpty()) throw new IllegalOperationException("Unable to remove CD");
 
         CD tmp = cd.get();
         cd = Optional.empty();

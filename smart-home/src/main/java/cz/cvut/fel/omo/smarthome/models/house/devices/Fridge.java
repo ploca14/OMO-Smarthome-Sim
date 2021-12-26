@@ -1,11 +1,9 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
-import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.alerts.IsMakingWeirdSounds;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.Food;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
-import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Stack;
 
@@ -22,11 +20,6 @@ public class Fridge extends Device {
         for (int i = 0; i < rand.nextInt(25); i++) {
             storeFood(new Food());
         }
-    }
-
-    @Override
-    public void notify(Event event) {
-        throw new UnsupportedOperationException();
     }
 
     public void accept(Person person) {

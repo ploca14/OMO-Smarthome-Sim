@@ -37,7 +37,7 @@ public class Simulation {
         addInhabitants();
     }
 
-    private void addInhabitants(){ // TODO subscribe to events
+    private void addInhabitants(){
         Room startingRoom = house.getFloors().get(0).getRooms().get(0);
         for (int i = 0; i < configuration.getAdults(); i++){
             Adult adult = new Adult();

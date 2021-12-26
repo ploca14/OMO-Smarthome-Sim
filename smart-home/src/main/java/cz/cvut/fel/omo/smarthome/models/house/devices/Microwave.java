@@ -13,11 +13,6 @@ public class Microwave extends Device implements HasCook {
         this.activeConsumptionRate = DeviceConsumptionRate.of(0, 0, 100);
     }
 
-    @Override
-    public void notify(Event event) {
-        throw new UnsupportedOperationException();
-    }
-
     public void accept(Person person) {
         person.use(this);
     }

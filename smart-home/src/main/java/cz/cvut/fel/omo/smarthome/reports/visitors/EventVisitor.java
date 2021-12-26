@@ -33,7 +33,6 @@ public class EventVisitor {
         }
     }
 
-    // TODO mozna staci proste jenom visit event, idk
     public void visitAlert(Alert alert){
         String handledBy = getHandledByString(alert);
 
