@@ -8,6 +8,7 @@ import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsDoneWashi
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsCrying;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsHungry;
 import cz.cvut.fel.omo.smarthome.events.inhabitantevents.importantevents.IsSad;
+import cz.cvut.fel.omo.smarthome.interfaces.traits.Cook;
 import cz.cvut.fel.omo.smarthome.interfaces.traits.HasCook;
 import cz.cvut.fel.omo.smarthome.iterators.SmartHomeIterator;
 import cz.cvut.fel.omo.smarthome.models.house.House;
@@ -28,10 +29,8 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.ManualPool;
 import cz.cvut.fel.omo.smarthome.models.house.devices.documentation.Warranty;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.CD;
 import cz.cvut.fel.omo.smarthome.models.house.devices.items.Food;
-import cz.cvut.fel.omo.smarthome.simulation.Simulation;
 import java.util.Optional;
 
-// TODO move implements observer up to inhabitant
 public class Adult extends Person {
         public Adult() {
         super();
@@ -44,8 +43,8 @@ public class Adult extends Person {
         switch (choice) {
             case 0 -> ac.turnOn();
             case 1 -> ac.turnOff();
-            case 2 -> ac.lowerTemperature();
-            case 3 -> ac.raiseTemperature();
+            case 2 -> ac.getTemperature().lowerTemperature();
+            case 3 -> ac.getTemperature().raiseTemperature();
             case 4 -> ac.start();
             case 5 -> ac.stop();
         }
@@ -117,8 +116,8 @@ public class Adult extends Person {
         switch (choice) {
             case 0 -> light.turnOff();
             case 1 -> light.turnOn();
-            case 2 -> light.lowerBrightness();
-            case 3 -> light.raiseBrightness();
+            case 2 -> light.getBrightness().lowerBrightness();
+            case 3 -> light.getBrightness().raiseBrightness();
         }
 
         logUsage(light);
@@ -131,6 +130,7 @@ public class Adult extends Person {
             case 0 -> microwave.turnOff();
             case 1 -> microwave.turnOn();
             case 2 -> getFoodFromFridge().ifPresent(food -> {
+                if (microwave.isCooking()) return;
                 microwave.cookFood(food);
                 isBusy = true;
                 House.getInstance().attach(this, new IsDoneCooking());
@@ -147,6 +147,7 @@ public class Adult extends Person {
             case 0 -> oven.turnOff();
             case 1 -> oven.turnOn();
             case 2 -> getFoodFromFridge().ifPresent(food -> {
+                if (oven.isCooking()) return;
                 oven.cookFood(food);
                 isBusy = true;
                 House.getInstance().attach(this, new IsDoneCooking());

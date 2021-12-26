@@ -7,7 +7,6 @@ import cz.cvut.fel.omo.smarthome.models.house.furniture.SportsEquipmentRack;
 import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.Bike;
 import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.Skis;
 
-// TODO nejak jeste udelat windowblinds
 public class RoomFactory {
     public Room makeKitchen(){
         RoomBuilder roomBuilder = new RoomBuilder();

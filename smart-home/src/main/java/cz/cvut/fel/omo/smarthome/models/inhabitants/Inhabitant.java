@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Random;
 
 
-// TODO implement observer
 abstract public class Inhabitant implements EventPublisher, Observer {
     protected final Random rand = new Random();
 

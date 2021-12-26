@@ -8,8 +8,6 @@ import cz.cvut.fel.omo.smarthome.reports.visitors.EventVisitor;
 
 import java.util.List;
 
-// TODO soucasny problem, Event se pouziva v randomeventech u publisheur, kde se entita znovupouziva a publishuje se
-// TODO jenze to potom zkurvi source toho eventu? Je reseni to udelat immutable?
 abstract public class Event{
     protected EventPublisher source;
 

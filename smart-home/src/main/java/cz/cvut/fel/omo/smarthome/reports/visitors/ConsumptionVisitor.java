@@ -7,7 +7,6 @@ import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumpt
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionTracker;
 import cz.cvut.fel.omo.smarthome.reports.ConsumptionReport;
 
-// TODO mozna sjednotit do jednoho interfacu, anebo abstraktni classy
 public class ConsumptionVisitor {
     private StringBuilder reportTextBuilder = new StringBuilder();
 

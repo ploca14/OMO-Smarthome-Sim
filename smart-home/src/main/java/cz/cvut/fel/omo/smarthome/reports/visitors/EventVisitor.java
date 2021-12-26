@@ -9,7 +9,6 @@ import cz.cvut.fel.omo.smarthome.reports.EventReport;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-// TODO mozna sjednotit do jednoho interfacu, anebo abstraktni classy
 public class EventVisitor {
     private StringBuilder reportTextBuilder = new StringBuilder();
 

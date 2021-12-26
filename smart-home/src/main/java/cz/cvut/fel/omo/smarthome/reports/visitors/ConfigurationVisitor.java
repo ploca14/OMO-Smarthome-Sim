@@ -11,7 +11,6 @@ import cz.cvut.fel.omo.smarthome.models.house.sportsequipment.SportsEquipment;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Inhabitant;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReport;
 
-// TODO mozna sjednotit do jednoho interfacu, anebo abstraktni classy
 public class ConfigurationVisitor {
     private StringBuilder reportTextBuilder = new StringBuilder();
 

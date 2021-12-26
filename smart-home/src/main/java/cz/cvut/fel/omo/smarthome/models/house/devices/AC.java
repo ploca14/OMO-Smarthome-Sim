@@ -1,16 +1,14 @@
 package cz.cvut.fel.omo.smarthome.models.house.devices;
 
 import cz.cvut.fel.omo.smarthome.events.abstractevents.Event;
-import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooBright;
 import cz.cvut.fel.omo.smarthome.events.deviceevents.importantevents.IsTooHot;
-import cz.cvut.fel.omo.smarthome.interfaces.traits.HasTemperature;
+import cz.cvut.fel.omo.smarthome.interfaces.traits.Temperature;
 import cz.cvut.fel.omo.smarthome.models.house.House;
 import cz.cvut.fel.omo.smarthome.models.house.devices.consumption.DeviceConsumptionRate;
 import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
-import cz.cvut.fel.omo.smarthome.reports.visitors.ConsumptionVisitor;
 
-public class AC extends Device implements HasTemperature {
-    Integer temperature = 21;
+public class AC extends Device {
+    Temperature temperature = new Temperature();
 
     public AC() {
         this.idleConsumptionRate = DeviceConsumptionRate.of(0,0, 8);
@@ -31,14 +29,8 @@ public class AC extends Device implements HasTemperature {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public Integer getTemperature() {
+    public Temperature getTemperature() {
         return temperature;
-    }
-
-    @Override
-    public void setTemperature(Integer temperature) {
-        this.temperature = temperature;
     }
 
     public void turnOn(){
@@ -60,6 +52,6 @@ public class AC extends Device implements HasTemperature {
     @Override
     public void notify(IsTooHot event) {
         start();
-        lowerTemperature();
+        temperature.lowerTemperature();
     }
 }

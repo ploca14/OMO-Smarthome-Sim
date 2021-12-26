@@ -33,7 +33,7 @@ public class RoomBuilder {
 
         if (withBlind){
             Device windowBlind = new WindowBlind(window);
-            room.addDevice(windowBlind); // TODO does nto work
+            room.addDevice(windowBlind);
         }
 
         room.addWindow(window);
