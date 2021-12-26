@@ -43,6 +43,11 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     public void subscribeToEvents() {}
 
+    /**
+     * Simulates repairing of the {@link Device}
+     * @param manual {@link Manual} needed for repair
+     * @param warranty {@link Warranty} warranty of the {@link Device}
+     */
     public void repair(Manual manual, Warranty warranty){
         if (manual.getDeviceType().equals(this.getClass()) && warranty.getDevice().equals(this)){
             durability = (50 + rand.nextInt(100));
@@ -73,6 +78,10 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
         return durability <= 0;
     }
 
+    /**
+     * Lazy-loads the {@link Warranty}
+     * @return {@link Warranty}
+     */
     public Warranty getWarranty() {
         if (warranty == null) {
             warranty = Warranty.downloadWarranty(this);
@@ -96,11 +105,17 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
 
     abstract public void accept(Person person);
 
+    /**
+     * Simulates one tick of the {@link Device} activity
+     */
     public void simulateOneTick(){
         consumptionTracker.incrementPerTick();
         simulateDeviceWear();
     }
 
+    /**
+     * Simulates one tick of the {@link Device} wear
+     */
     protected void simulateDeviceWear(){
         if (!isBroken()){
             durability -= Configuration.getInstance().getDeviceWearRate();

@@ -79,6 +79,9 @@ public abstract class Person extends Inhabitant {
         return false;
     }
 
+    /**
+     * Returns the borrowed {@link SportsEquipment}
+     */
     public void returnSportsEquipment(){
         if (borrowedSportsEquipment != null){
             SportsEquipment equipment = borrowedSportsEquipment.getKey();
@@ -88,6 +91,9 @@ public abstract class Person extends Inhabitant {
         }
     }
 
+    /**
+     * Returns the {@link Inhabitant} home, returns the {@link SportsEquipment} and subscribes back to all the Events
+     */
     public void returnHome(){
         waitingForSport = false;
         goToRoom(House.getInstance().getRoomIterator().get(0));

@@ -68,6 +68,10 @@ abstract public class Inhabitant implements EventPublisher, Observer {
         goToRoom(roomIterator.get(randomIndex));
     }
 
+    /**
+     * Moves the {@link Inhabitant} to the specified {@link Room}
+     * @param room {@link Room} to move the {@link Inhabitant} to
+     */
     public void goToRoom(Room room){
         if (this.currentRoom != null){
             this.currentRoom.removeInhabitant(this);

@@ -10,14 +10,26 @@ import java.util.Random;
 public interface EventPublisher {
     HashMap<Class<? extends EventPublisher>, ArrayList<Event>> canPublishRandomly = new HashMap<>();
 
+
+    /**
+     * Publishes (fires) an {@link Event}
+     * @param event {@link Event} to be published
+     */
     default void publishEvent(Event event){
         House.getInstance().consumeEvent(this, event);
     }
 
+    /**
+     * Publishes a random {@link Event}
+     */
     default void publishRandomEvent() {
         if (canPublishRandomlyAtleastOneEvent()) publishEvent(getRandomEvent());
     }
 
+    /**
+     * Registers an {@link Event} to be published randomly with {@link #publishRandomEvent()}
+     * @param event
+     */
     default void addRandomlyPublishedEvent(Event event){
         ArrayList<Event> eventsThisCanPublish = canPublishRandomly.get(this.getClass());
         if (eventsThisCanPublish == null){
@@ -32,6 +44,9 @@ public interface EventPublisher {
         eventsThisCanPublish.add(event);
     }
 
+    /**
+     * @return Whether the {@link EventPublisher} instance has any {@link Event}s registered to be published randomly
+     */
     default boolean canPublishRandomlyAtleastOneEvent(){
         ArrayList<Event> events = canPublishRandomly.get(this.getClass());
         return events != null && events.size() != 0;

@@ -69,6 +69,9 @@ public class Simulation {
         }
     }
 
+    /**
+     * Starts the simulation
+     */
     public void execute(){
         while (currentSimulationTick != configuration.getSimulationLength() + 1){
             outsideWorld.removeAllPeople();

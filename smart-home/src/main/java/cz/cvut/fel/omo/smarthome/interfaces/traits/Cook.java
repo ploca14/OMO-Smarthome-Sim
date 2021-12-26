@@ -7,6 +7,9 @@ public class Cook {
     private CookState cookState = CookState.Off;
     private Food contents;
 
+    /**
+     * Simulates one tick of cooking
+     */
     public void simulateCooking() {
         if (cookState.equals(CookState.Off)) return;
 
@@ -17,6 +20,10 @@ public class Cook {
         cookState = cookState.nextState();
     }
 
+    /**
+     * Starts cooking the specified {@link Food}
+     * @param food {@link Food} to cook
+     */
     public void startCooking(Food food) {
         if (cookState.equals(CookState.Off)) {
             cookState = CookState.Preheating;
@@ -24,6 +31,10 @@ public class Cook {
         }
     }
 
+    /**
+     * Takes the cooked {@link Food} out
+     * @return The cooked {@link Food}
+     */
     public Food getCookedFood() {
         Food tmp = contents;
         contents = null;
@@ -31,10 +42,16 @@ public class Cook {
         return tmp;
     }
 
+    /**
+     * @return Whether the {@link Food} is done cooking
+     */
     public boolean isDone() {
         return contents != null && contents.isCooked();
     }
 
+    /**
+     * @return Whether it is currently cooking
+     */
     public boolean isCooking() {
         return !cookState.equals(CookState.Off);
     }

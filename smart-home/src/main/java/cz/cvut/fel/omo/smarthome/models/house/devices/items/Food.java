@@ -16,6 +16,10 @@ public class Food extends Item {
         return cooked;
     }
 
+    /**
+     * Sets the cooked state to true
+     * @return itself
+     */
     public Food cook() {
         this.cooked = true;
         return this;

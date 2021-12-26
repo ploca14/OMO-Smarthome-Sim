@@ -33,6 +33,11 @@ public interface Observer {
      */
     boolean canMove();
 
+    /**
+     * Checks whether the {@link Observer} instance is in the same room as the {@link Event} source
+     * @param event {@link Event} to check
+     * @return Whether the {@link Observer} instance is in the same room as the {@link Event} source
+     */
     default boolean isInRoomWithSource(Event event) {
         return getCurrentRoom().getInhabitants().contains(event.getSource())
             || getCurrentRoom().getDevices().contains(event.getSource());

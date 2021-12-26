@@ -8,10 +8,17 @@ import java.util.ArrayList;
 public class SportsEquipmentRack extends Furniture{
     ArrayList<SportsEquipment> sportsEquipment = new ArrayList<>();
 
+    /**
+     * Adds {@link SportsEquipment} to the {@link SportsEquipmentRack} instance
+     * @param sportsEquipment {@link SportsEquipment}
+     */
     public void addSportsEquipment(SportsEquipment sportsEquipment){
         this.sportsEquipment.add(sportsEquipment);
     }
 
+    /**
+     * Takes {@link SportsEquipment} out of the {@link SportsEquipmentRack} instance
+     */
     public SportsEquipment takeSportsEquipment(){
         if (sportsEquipment.size() != 0){
             SportsEquipment equipment = sportsEquipment.get(0);

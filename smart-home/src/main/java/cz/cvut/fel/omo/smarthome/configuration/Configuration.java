@@ -74,6 +74,9 @@ public class Configuration {
         return value.intValue();
     }
 
+    /**
+     * @return {@link Configuration} Singleton
+     */
     public static Configuration getInstance(){
         if (instance == null){
             instance = file == null ? new Configuration() : new Configuration(file);
@@ -82,6 +85,10 @@ public class Configuration {
         return instance;
     }
 
+    /**
+     * Loads configuration from file
+     * @param file {@link Reader}
+     */
     public static void loadFromFile(Reader file){
         Configuration.file = file;
     }
