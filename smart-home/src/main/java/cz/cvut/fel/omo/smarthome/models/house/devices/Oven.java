@@ -9,7 +9,7 @@ import cz.cvut.fel.omo.smarthome.models.inhabitants.Person;
 public class Oven extends Device implements HasCook {
 
     public Oven() {
-        this.idleConsumptionRate = DeviceConsumptionRate.of(0,0, 2);
+        this.idleConsumptionRate = DeviceConsumptionRate.of(0,5, 2);
         this.activeConsumptionRate = DeviceConsumptionRate.of(0, 25, 5);
     }
 

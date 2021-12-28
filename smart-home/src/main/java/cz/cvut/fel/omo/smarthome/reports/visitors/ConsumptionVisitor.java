@@ -22,10 +22,10 @@ public class ConsumptionVisitor {
         reportTextBuilder
                 .append(device).append("\n")
                 .append("- Totally consumed:\n")
-                .append(totalConsumption);
+                .append(tracker.getTotalConsumption());
         reportTextBuilder
                 .append("- Consumed since last consumption report:\n")
-                .append(sinceLastVisitConsumption)
+                .append(tracker.getConsumptionSinceReset())
                 .append("\n");
 
         tracker.reset();

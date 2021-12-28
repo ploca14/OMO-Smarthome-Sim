@@ -11,7 +11,7 @@ public class AC extends Device {
     Temperature temperature = new Temperature();
 
     public AC() {
-        this.idleConsumptionRate = DeviceConsumptionRate.of(0,0, 8);
+        this.idleConsumptionRate = DeviceConsumptionRate.of(5,0, 8);
         this.activeConsumptionRate = DeviceConsumptionRate.of(20, 0, 70);
     }
 

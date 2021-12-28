@@ -51,6 +51,7 @@ abstract public class Device implements Observer, EventPublisher, HasConsumption
     public void repair(Manual manual, Warranty warranty){
         if (manual.getDeviceType().equals(this.getClass()) && warranty.getDevice().equals(this)){
             durability = (50 + rand.nextInt(100));
+            this.turnOn();
         }
     }
 
