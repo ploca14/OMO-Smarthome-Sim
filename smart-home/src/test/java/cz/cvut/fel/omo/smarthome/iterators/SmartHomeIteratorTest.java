@@ -42,7 +42,7 @@ public class SmartHomeIteratorTest {
             deviceCount++;
         }
 
-        Assertions.assertEquals(18, deviceCount);
+        Assertions.assertEquals(32, deviceCount);
     }
 
     @Test
