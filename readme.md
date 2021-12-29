@@ -1,4 +1,6 @@
 # Smart home
+## CMDline argumenty
+Pokud nejsou žádné specifikovány, tak se zapne simulace s defaultní konfigurací. Pro spuštění s jinou konfigurací je potřeba spustit simulaci s cmdline argumentem obsahující jméno souboru (např. "Configuration2.json").
 ## Popis realisace jednotlivých funkčních požadavků
 - **F1 - výčet entit se kterýma se pracuje:** Entity se nacházi v programu pod stejnými jmény.
 - **F2 - Stav a API zařízení:** Všechna zařízení mají DeviceState, podle kterého mají spotřebu a API pro měnení tohoto stavu. Se zařízeními může Person interagovat pomocí metody use. Vybrané zařízeni maji Traity, které rozšiřují jejich funkcionalitu. Např. Oven a Microvave maji trait HasCook, který umožňuje vařit jídlo, anebo AC má trait Temperature. Některá zařízení také obsahují nějaký Item, např. Fridge může obsahovat Food, anebo AudioVideoReceiver může obsahovat CD.
