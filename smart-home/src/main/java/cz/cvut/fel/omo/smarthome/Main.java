@@ -39,16 +39,19 @@ public class Main {
     }
 
     private static void saveReportsToFile(HashMap<Integer, ArrayList<Report>> reports){
+        for (Integer tick : reports.keySet()){
+           ArrayList<Report> reportsAfterTick = reports.get(tick);
+           for (Report report : reportsAfterTick){
+               saveSingleReport(report, tick);
+           }
+        }
+    }
+
+    private static void saveSingleReport(Report report, Integer tick){
         try {
-            FileWriter myWriter = new FileWriter("reports.txt");
-            for (Integer tick : reports.keySet()){
-               ArrayList<Report> reportsAfterTick = reports.get(tick);
-               myWriter.write("Reports after " + tick + " ticks.\n");
-               for (Report report : reportsAfterTick){
-                   myWriter.write(report.toString());
-                   myWriter.write("\n");
-               }
-            }
+            FileWriter myWriter = new FileWriter( report.getClass().getSimpleName() + "_after_" + tick + "_ticks.txt");
+            myWriter.write(report.toString());
+            myWriter.write("\n");
             myWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
