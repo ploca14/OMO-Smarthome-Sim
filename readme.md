@@ -1,7 +1,10 @@
 # Smart home
 ## Popis realisace jednotlivých funkčních požadavků
 - **F1 - výčet entit se kterýma se pracuje:** Entity se nacházi v programu pod stejnými jmény.
-- **F2 - Stav a API zařízení:** Všechna zařízení mají DeviceState, podle kterého mají spotřebu a funkcionalitu. Se zařízeními mohou Person interagovat pomocí metody use. 
+- **F2 - Stav a API zařízení:** Všechna zařízení mají DeviceState, podle kterého mají spotřebu a funkcionalitu. Se zařízeními může Person interagovat pomocí metody use. Vybrané zařízeni maji Traity, které rozšiřují jejich funkcionalitu. Např. Oven a Microvave maji trait HasCook, který umožňuje vařit jídlo, anebo AC má trait Temperature. Některá zařízení také obsahují nějaký Item, např. Fridge může obsahovat Food, anebo AudioVideoReceiver může obsahovat CD.
+- **F3 - Spotřeba zařízení a jejich stav:** DeviceConsumption, DeviceState
+- **F4 - API pro sběr dat o spotřebě:** Kazdý Device obsahuje DeviceTracker, který poskytuje API pro sběr spotřeby. Lze ho vyresetovat a měřit tak spotřebu v růžných časových intervalech.
+- **F5 - Akce obyvatel na ostatní zařízení a obyvatele**
 
 
 ## Použité design patterny (A třídy kde je lze najít):
@@ -15,6 +18,7 @@
 - Object Pool – ManualPool, předpokládáme, že Manual je pro každý druh zařízení vždycky stejný, takže pro každou třídu zařízení se v případě nutnosti vytvoří vždy pouze jenom jeden manuál.
 - Lazy Initialization – Device.getWarranty()
 - Immutable objekty - DeviceConsumption, DeviceConsumptionRate
+- Traits - HasCook, Brightness. Snažili jsme se lehce inspirovat tím jak je řešeno API od google smart home. (https://developers.google.com/assistant/smarthome/traits)
 
 ## Zajímavý design??
 ### Generický iterátor
