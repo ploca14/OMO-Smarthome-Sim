@@ -17,8 +17,8 @@
 ## Použité design patterny (A třídy kde je lze najít):
 - State machine - DeviceState, CookState
 - Iterator – SmartHomeIterator, RoomIterator
-- Factory/Factory method – AbstractHouseFactory, OrdinaryHouseFactory, LuxuriousHouseFactory, RoomFactory
-- Builder – FloorBuilder, RoomBuilder
+- Factory/Factory method – AbstractHouseFactory, OrdinaryHouseFactory, LuxuriousHouseFactory, RoomFactory (Používá se pro inicialisaci domu)
+- Builder – FloorBuilder, RoomBuilder (Používá se pro inicialisaci domu)
 - Singleton – House, OutsideWorld, Configuration (Singletony nejsou thread-safe, protože v zadání je napsáno, že aplikace má běžet pouze v jednom vlákně.)
 - Visitor - reports/visitors, Eventy (např. IsBroken)
 - Observer/Event listener - EventConsumer, EventPublisher, Observer, Observable
